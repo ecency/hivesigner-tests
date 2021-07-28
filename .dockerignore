@@ -1,0 +1,15 @@
+.git
+
+.vscode
+README.md
+
+node_modules
+dist
+vx
+.env
+ui-built/*
+
+.gradle
+.build
+.idea
+out
