@@ -24,6 +24,7 @@ dependencies {
     testImplementation(platform('org.junit:junit-bom:5.7.2'))
     testImplementation('org.junit.jupiter:junit-jupiter')
     implementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
 }
 
 test {
