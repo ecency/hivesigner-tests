@@ -30,7 +30,6 @@ public class GetStartedCase {
         ChromeOptions options = new ChromeOptions();
         options.addArguments(ConfProperties.getProperty("options.addArguments"));
 
-
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -44,19 +43,36 @@ public class GetStartedCase {
 
     @Test
     public void existedUserLoginNoEncrypt() {
+        String username = ConfProperties.getProperty("userName");
+        String privateKey = ConfProperties.getProperty("privateKey");
+
         getStartedPage.getStartedBtnClick();
         loginPage.isPageLoaded();
-        String curl1 = loginPage.getLoginPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), curl1);
-        loginPage.inputUserName(ConfProperties.getProperty("userName"));
-        loginPage.inputPrivateKey(ConfProperties.getProperty("privateKey"));
-        loginPage.encryptLoginCheckBoxEnabled(false);
-        loginPage.clickLoginButton();
+
+        loginPage.loginAccount(username, privateKey, false);
+
         accountsPage.isPageLoaded();
-        String curl2 = accountsPage.getAccountsPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl2);
-        screenShotMake.screenshotMaker();
+        String curl = accountsPage.getAccountsPageUrl();
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
     }
+
+    @Test
+    public void existedUserLoginEncrypt(){
+        String username = ConfProperties.getProperty("userName");
+        String privateKey = ConfProperties.getProperty("privateKey");
+        String localPassword = ConfProperties.getProperty("localPassword");
+
+        getStartedPage.getStartedBtnClick();
+        loginPage.isPageLoaded();
+
+        loginPage.loginAccount(username, privateKey, true);
+        loginPage.setLocalPassword(localPassword);
+
+        accountsPage.isPageLoaded();
+        String curl = accountsPage.getAccountsPageUrl();
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
+    }
+
 
     @AfterEach
     public void tearDown() {

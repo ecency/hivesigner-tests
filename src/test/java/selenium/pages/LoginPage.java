@@ -25,21 +25,33 @@ public class LoginPage {
     @FindBy(xpath = "//div/button[@class='button-primary w-full block mb-2']")
     private WebElement loginBtn;
 
+    @FindBy(xpath = "//div/button[@class='button-primary w-full mb-2 mt-5']")
+    private WebElement continueBtn;
 
     @FindBy(xpath = "//*[contains(text(), 'Don`t have an account?')]")
-    private WebElement haveAccountQ;
+    private WebElement dontHaveAccount;
+
+    @FindBy(id = "key")
+    private WebElement hivesignerPasswordInput;
+
+    @FindBy(id = "keyConfirmation")
+    private WebElement hivesignerPasswordConfirmInput;
 
 
     public void inputUserName(String login) {
         userNameInput.sendKeys(login);
     }
 
-    public void inputPrivateKey(String password) {
-        privateKeyInput.sendKeys(password);
+    public void inputPrivateKey(String privateKey) {
+        privateKeyInput.sendKeys(privateKey);
     }
 
     public void clickLoginButton() {
         loginBtn.click();
+    }
+
+    public void clickContinueButton() {
+        continueBtn.click();
     }
 
     public void encryptLoginCheckBoxEnabled(Boolean status) {
@@ -49,14 +61,35 @@ public class LoginPage {
 
     }
 
-    public void isPageLoaded(){
-        haveAccountQ.isDisplayed();
+    public void inputHivesignerPassword(String password) {
+        hivesignerPasswordInput.sendKeys(password);
+    }
+
+    public void inputHivesignerPasswordConfirm(String password) {
+        hivesignerPasswordConfirmInput.sendKeys(password);
+    }
+
+    public void setLocalPassword(String localPassword) {
+        inputHivesignerPassword(localPassword);
+        inputHivesignerPasswordConfirm(localPassword);
+        clickContinueButton();
+    }
+
+
+    public void loginAccount(String username, String privateKey, Boolean encrypted) {
+        inputUserName(username);
+        inputPrivateKey(privateKey);
+        encryptLoginCheckBoxEnabled(encrypted);
+        clickLoginButton();
+    }
+
+    public void isPageLoaded() {
+        dontHaveAccount.isDisplayed();
     }
 
     public String getLoginPageUrl() {
         String url = driver.getCurrentUrl();
         return url;
     }
-
 
 }
