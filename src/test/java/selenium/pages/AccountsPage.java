@@ -15,6 +15,8 @@ public class AccountsPage {
     @FindBy(css = ".accounts-list")
     private WebElement accountsList;
 
+    @FindBy(xpath = "//div//span[text()='Accounts']")
+    private WebElement logoImg;
 
     public void isPageLoaded(){
         accountsList.isDisplayed();
@@ -25,5 +27,8 @@ public class AccountsPage {
         return url;
     }
 
+    public void returnToGetStartedPage(){
+        logoImg.click();
+    }
 
 }

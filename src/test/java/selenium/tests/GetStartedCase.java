@@ -57,7 +57,7 @@ public class GetStartedCase {
     }
 
     @Test
-    public void existedUserLoginEncrypt(){
+    public void existedUserLoginEncrypt() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
         String localPassword = ConfProperties.getProperty("localPassword");
@@ -67,6 +67,25 @@ public class GetStartedCase {
 
         loginPage.loginAccount(username, privateKey, true);
         loginPage.setLocalPassword(localPassword);
+
+        accountsPage.isPageLoaded();
+        String curl = accountsPage.getAccountsPageUrl();
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
+    }
+
+    @Test
+    public void loginUserFromDropdownList() { //Todo: fix test with dropdownlist
+        String username = ConfProperties.getProperty("userName");
+        String privateKey = ConfProperties.getProperty("privateKey");
+
+        getStartedPage.getStartedBtnClick();
+        loginPage.isPageLoaded();
+        loginPage.loginAccount(username, privateKey, false);
+        accountsPage.isPageLoaded();
+        accountsPage.returnToGetStartedPage();
+        getStartedPage.getStartedBtnClick();
+        loginPage.setAccount(username);
+
 
         accountsPage.isPageLoaded();
         String curl = accountsPage.getAccountsPageUrl();

@@ -1,9 +1,11 @@
 package selenium.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class LoginPage {
     public WebDriver driver;
@@ -37,6 +39,8 @@ public class LoginPage {
     @FindBy(id = "keyConfirmation")
     private WebElement hivesignerPasswordConfirmInput;
 
+    @FindBy(xpath = "//div/div[@class='select text-lg relative text-black-500 z-20']")
+    private WebElement accountDropdown;
 
     public void inputUserName(String login) {
         userNameInput.sendKeys(login);
@@ -75,6 +79,16 @@ public class LoginPage {
         clickContinueButton();
     }
 
+    public void dropdownSelect() {
+        accountDropdown.click();
+    }
+
+    public void setAccount(String account){
+        dropdownSelect();
+        WebElement accountSelect = driver.findElement(By.xpath(String.format("//div//*[contains(text(), '%s')]", account)));
+        accountSelect.click();
+        clickContinueButton();
+    }
 
     public void loginAccount(String username, String privateKey, Boolean encrypted) {
         inputUserName(username);
