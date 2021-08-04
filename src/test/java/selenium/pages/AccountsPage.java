@@ -1,5 +1,7 @@
 package selenium.pages;
 
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,11 +20,8 @@ public class AccountsPage {
     @FindBy(xpath = "//div//span[text()='Accounts']")
     private WebElement logoImg;
 
-    @FindBy(xpath = "//div//i[@class='absolute bottom-0 right-0 icon-check flex items-center justify-center']")
-    private WebElement loggedInIcon;
-
-//    @FindBy(xpath = '//div//i[@class=\'absolute bottom-0 right-0 icon-check flex items-center justify-center\']/../../div[@class=\'text-sm md:text-base text-black-400\']')
-//    private WebElement loggedInAccountUserName;
+    @FindBy(xpath = "//a[normalize-space()=\'Add another account\']")
+    private WebElement addAnotherAccBtn;
 
     public void isPageLoaded(){
         accountsList.isDisplayed();
@@ -33,6 +32,20 @@ public class AccountsPage {
         return url;
     }
 
+    public void addAccountClick(){
+        addAnotherAccBtn.click();
+    }
+
+    public void chooseAccount(String username){
+        WebElement account = driver.findElement(By.xpath(String.format("//span[normalize-space()='%s']", username)));
+        account.click();
+    }
+
+    public void isAccoutChoosen(String username){
+        WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='modal-body h-full p-6']//span[normalize-space()='%s']//..//*[local-name()='svg']",username)));
+        Assertions.assertEquals(true, confirmIcon.isDisplayed());
+
+    }
     public void returnToGetStartedPage(){
         logoImg.click();
     }

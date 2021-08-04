@@ -1,11 +1,8 @@
 package selenium.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
@@ -55,10 +52,11 @@ public class AccountSwitch {
         loginPage.loginAccount(username0, privateKey0, false);
 
         accountsPage.isPageLoaded();
-        accountsPage.returnToGetStartedPage();
-        getStartedPage.getStartedBtnClick();
-
+        accountsPage.addAccountClick();
         loginPage.loginAccount(username1, privateKey1, false);
+        accountsPage.chooseAccount(username0);
+        accountsPage.isAccoutChoosen(username0);
+
 
 
 

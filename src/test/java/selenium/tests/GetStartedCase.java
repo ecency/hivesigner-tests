@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
@@ -28,7 +27,7 @@ public class GetStartedCase {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
 
         ChromeOptions options = new ChromeOptions();
- //       options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("options.addArguments"));
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
