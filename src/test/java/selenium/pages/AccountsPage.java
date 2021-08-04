@@ -18,6 +18,12 @@ public class AccountsPage {
     @FindBy(xpath = "//div//span[text()='Accounts']")
     private WebElement logoImg;
 
+    @FindBy(xpath = "//div//i[@class='absolute bottom-0 right-0 icon-check flex items-center justify-center']")
+    private WebElement loggedInIcon;
+
+//    @FindBy(xpath = '//div//i[@class=\'absolute bottom-0 right-0 icon-check flex items-center justify-center\']/../../div[@class=\'text-sm md:text-base text-black-400\']')
+//    private WebElement loggedInAccountUserName;
+
     public void isPageLoaded(){
         accountsList.isDisplayed();
     }

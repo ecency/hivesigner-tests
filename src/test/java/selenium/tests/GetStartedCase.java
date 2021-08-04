@@ -28,7 +28,7 @@ public class GetStartedCase {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+ //       options.addArguments(ConfProperties.getProperty("options.addArguments"));
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
@@ -74,7 +74,7 @@ public class GetStartedCase {
     }
 
     @Test
-    public void loginUserFromDropdownList() { //Todo: fix test with dropdownlist
+    public void loginUserFromDropdownList() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 

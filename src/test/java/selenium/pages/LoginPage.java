@@ -27,7 +27,7 @@ public class LoginPage {
     @FindBy(xpath = "//div/button[@class='button-primary w-full block mb-2']")
     private WebElement loginBtn;
 
-    @FindBy(xpath = "//div/button[@class='button-primary w-full mb-2 mt-5']")
+    @FindBy(xpath = "//button[normalize-space()='Continue']")
     private WebElement continueBtn;
 
     @FindBy(xpath = "//*[contains(text(), 'Don`t have an account?')]")
@@ -39,7 +39,7 @@ public class LoginPage {
     @FindBy(id = "keyConfirmation")
     private WebElement hivesignerPasswordConfirmInput;
 
-    @FindBy(xpath = "//div/div[@class='select text-lg relative text-black-500 z-20']")
+    @FindBy(xpath = "//div/div[@class='mb-2']//div[@class='select text-lg relative text-black-500 z-20']")
     private WebElement accountDropdown;
 
     public void inputUserName(String login) {
@@ -84,8 +84,8 @@ public class LoginPage {
     }
 
     public void setAccount(String account){
-        dropdownSelect();
-        WebElement accountSelect = driver.findElement(By.xpath(String.format("//div//*[contains(text(), '%s')]", account)));
+        accountDropdown.click();
+        WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class='select-option cursor-pointer py-4 px-5 hover:bg-primary-100 bg-gray-200']//div[@class='flex items-center justify-start'][normalize-space()='%s']", account)));
         accountSelect.click();
         clickContinueButton();
     }
