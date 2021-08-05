@@ -55,10 +55,29 @@ public class AccountSwitch {
         accountsPage.addAccountClick();
         loginPage.loginAccount(username1, privateKey1, false);
         accountsPage.chooseAccount(username0);
-        accountsPage.isAccoutChoosen(username0);
+        accountsPage.isAccountChoosen(username0);
+    }
 
+    @Test
+    public void switchToAccountWithPassword() {
+        String username0 = ConfProperties.getProperty("userName");
+        String privateKey0 = ConfProperties.getProperty("privateKey");
+        String username1 = ConfProperties.getProperty("userNameAlt");
+        String privateKey1 = ConfProperties.getProperty("privateKeyAlt");
+        String localPassword = ConfProperties.getProperty("localPassword");
 
+        getStartedPage.getStartedBtnClick();
+        loginPage.isPageLoaded();
 
+        loginPage.loginAccount(username0, privateKey0, true);
+        loginPage.setLocalPassword(localPassword);
 
+        accountsPage.isPageLoaded();
+        accountsPage.addAccountClick();
+
+        loginPage.loginAccount(username1, privateKey1, false);
+        accountsPage.chooseAccount(username0);
+        accountsPage.inputConfirmLocalPassword(localPassword);
+        accountsPage.isAccountChoosen(username0);
     }
 }
