@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class AccountsPage {
     public WebDriver driver;
+
     public AccountsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -20,17 +21,8 @@ public class AccountsPage {
     @FindBy(xpath = "//div//span[text()='Accounts']")
     private WebElement logoImg;
 
-    @FindBy(xpath = "//a[normalize-space()=\'Add another account\']")
+    @FindBy(xpath = "//div//div[@class='flex justify-center mt-6 md:mt-20 xl:pt-10']/a")
     private WebElement addAnotherAccBtn;
-
-    public void isPageLoaded(){
-        accountsList.isDisplayed();
-    }
-
-    public String getAccountsPageUrl() {
-        String url = driver.getCurrentUrl();
-        return url;
-    }
 
     @FindBy(xpath = "//div[@class='modal flex items-center justify-center top-0 left-0 bottom-0 right-0 fixed mobile-full']//input[@id=\"importKey\"]")
     private WebElement confirmLocalPassword;
@@ -41,6 +33,17 @@ public class AccountsPage {
     @FindBy(xpath = "//button[normalize-space()='Login']")
     private WebElement getConfirmLocalPasswordLogin;
 
+    @FindBy(xpath = "//a[normalize-space()='Authorities']")
+    private WebElement authorities;
+
+    public void isPageLoaded(){
+        accountsList.isDisplayed();
+    }
+
+    public String getAccountsPageUrl() {
+        String url = driver.getCurrentUrl();
+        return url;
+    }
 
     public void addAccountClick(){
         addAnotherAccBtn.click();
@@ -64,7 +67,11 @@ public class AccountsPage {
             Assertions.assertEquals(true, confirmPasswordPanel.isDisplayed());
             confirmLocalPassword.sendKeys(password);
             getConfirmLocalPasswordLogin.click();
+    }
 
-
+    public void authoritiesClick(String username){
+        WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']/..",username)));
+        confirmIcon.click();
+        authorities.click();
     }
 }
