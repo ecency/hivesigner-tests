@@ -41,7 +41,7 @@ public class GetStartedCase {
     }
 
     @Test
-    public void existedUserLoginNoEncrypt() {
+    public void existedUserLoginNoEncrypt() { //move to ImportCase
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 
@@ -56,7 +56,7 @@ public class GetStartedCase {
     }
 
     @Test
-    public void existedUserLoginEncrypt() {
+    public void existedUserLoginEncrypt() { //move to ImportCase
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
         String localPassword = ConfProperties.getProperty("localPassword");
