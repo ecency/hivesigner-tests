@@ -27,3 +27,4 @@ test/build/
 build/
 /.gradle/
 /Screenshots/
+.properties
