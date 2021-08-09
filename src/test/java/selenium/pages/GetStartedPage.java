@@ -20,7 +20,7 @@ public class GetStartedPage {
         getStartedBtn.click();
     }
 
-    public String getGetStartedPageUrl() {
+    public String getPageUrl() {
         String url = driver.getCurrentUrl();
         return url;
     }

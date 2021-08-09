@@ -54,8 +54,8 @@ public class AccountsPage {
         account.click();
     }
 
-    public void isAccountChoosen(String username){
-        WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='modal-body h-full p-6']//span[normalize-space()='%s']//..//*[local-name()='svg']",username)));
+    public void isAccountChosen(String username){
+        WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']//..//*[local-name()='svg']",username)));
         Assertions.assertEquals(true, confirmIcon.isDisplayed());
 
     }

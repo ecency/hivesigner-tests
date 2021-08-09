@@ -12,14 +12,14 @@ import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.AuthPage;
 import selenium.pages.GetStartedPage;
-import selenium.pages.LoginPage;
+import selenium.pages.ImportPage;
 
 import java.util.concurrent.TimeUnit;
 
 public class UserAuthoritiesCase {
     public static WebDriver driver;
     public static GetStartedPage getStartedPage;
-    public static LoginPage loginPage;
+    public static ImportPage importPage;
     public static AccountsPage accountsPage;
     public static AuthPage authPage;
     public static ScreenshotsHandler screenShotMake;
@@ -29,7 +29,7 @@ public class UserAuthoritiesCase {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
 
         ChromeOptions options = new ChromeOptions();
-        //       options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("options.addArguments"));
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
@@ -37,7 +37,7 @@ public class UserAuthoritiesCase {
         driver.get(ConfProperties.getProperty("getStartedPageUrl"));
 
         getStartedPage = new GetStartedPage(driver);
-        loginPage = new LoginPage(driver);
+        importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
         authPage = new AuthPage(driver);
 
@@ -50,7 +50,7 @@ public class UserAuthoritiesCase {
         String privateKey = ConfProperties.getProperty("privateKey");
 
         getStartedPage.getStartedBtnClick();
-        loginPage.loginAccount(username, privateKey, false);
+        importPage.importAccount(username, privateKey, false);
 
         accountsPage.isPageLoaded();
         accountsPage.authoritiesClick(username);
@@ -69,7 +69,7 @@ public class UserAuthoritiesCase {
         String userLevel = "owner";
 
         getStartedPage.getStartedBtnClick();
-        loginPage.loginAccount(username, privateKey, false);
+        importPage.importAccount(username, privateKey, false);
 
         accountsPage.isPageLoaded();
         accountsPage.authoritiesClick(username);

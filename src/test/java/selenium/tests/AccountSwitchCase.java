@@ -1,5 +1,6 @@
 package selenium.tests;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -9,14 +10,14 @@ import selenium.ConfProperties;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
-import selenium.pages.LoginPage;
+import selenium.pages.ImportPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class AccountSwitch {
+public class AccountSwitchCase {
     public static WebDriver driver;
     public static GetStartedPage getStartedPage;
-    public static LoginPage loginPage;
+    public static ImportPage importPage;
     public static AccountsPage accountsPage;
     public static ScreenshotsHandler screenShotMake;
 
@@ -33,51 +34,57 @@ public class AccountSwitch {
         driver.get(ConfProperties.getProperty("getStartedPageUrl"));
 
         getStartedPage = new GetStartedPage(driver);
-        loginPage = new LoginPage(driver);
+        importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
         screenShotMake = new ScreenshotsHandler(driver);
     }
-
 
     @Test
     public void switchToAccountNoPassword() {
         String username0 = ConfProperties.getProperty("userName");
         String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt");
+        String username1 = ConfProperties.getProperty("userNameAlt1");
+        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
 
         getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
+        importPage.isPageLoaded();
 
-        loginPage.loginAccount(username0, privateKey0, false);
+        importPage.importAccount(username0, privateKey0, false);
 
         accountsPage.isPageLoaded();
         accountsPage.addAccountClick();
-        loginPage.loginAccount(username1, privateKey1, false);
+        importPage.importAccount(username1, privateKey1, false);
         accountsPage.chooseAccount(username0);
-        accountsPage.isAccountChoosen(username0);
+        accountsPage.isAccountChosen(username0);
     }
 
     @Test
     public void switchToAccountWithPassword() {
         String username0 = ConfProperties.getProperty("userName");
         String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt");
+        String username1 = ConfProperties.getProperty("userNameAlt1");
+        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
 
         getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
+        importPage.isPageLoaded();
 
-        loginPage.loginAccount(username0, privateKey0, true);
-        loginPage.setLocalPassword(localPassword);
+        importPage.importAccount(username0, privateKey0, true);
+        importPage.setLocalPassword(localPassword);
 
         accountsPage.isPageLoaded();
         accountsPage.addAccountClick();
 
-        loginPage.loginAccount(username1, privateKey1, false);
+        importPage.importAccount(username1, privateKey1, false);
         accountsPage.chooseAccount(username0);
         accountsPage.inputConfirmLocalPassword(localPassword);
-        accountsPage.isAccountChoosen(username0);
+        accountsPage.isAccountChosen(username0);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

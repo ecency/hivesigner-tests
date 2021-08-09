@@ -11,6 +11,7 @@ import selenium.ConfProperties;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
+import selenium.pages.ImportPage;
 import selenium.pages.LoginPage;
 
 import java.util.concurrent.TimeUnit;
@@ -18,8 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class GetStartedCase {
     public static WebDriver driver;
     public static GetStartedPage getStartedPage;
-    public static LoginPage loginPage;
+    public static ImportPage importPage;
     public static AccountsPage accountsPage;
+    public static LoginPage loginPage;
     public static ScreenshotsHandler screenShotMake;
 
     @BeforeEach
@@ -35,62 +37,35 @@ public class GetStartedCase {
         driver.get(ConfProperties.getProperty("getStartedPageUrl"));
 
         getStartedPage = new GetStartedPage(driver);
-        loginPage = new LoginPage(driver);
+        importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
+        loginPage = new LoginPage(driver);
         screenShotMake = new ScreenshotsHandler(driver);
     }
 
     @Test
-    public void existedUserLoginNoEncrypt() { //move to ImportCase
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+    public void getStartedRedirectToImportPage(){
 
         getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
+        importPage.isPageLoaded();
+        String curl = importPage.getPageUrl();
+        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), curl);
 
-        loginPage.loginAccount(username, privateKey, false);
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
     }
 
     @Test
-    public void existedUserLoginEncrypt() { //move to ImportCase
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
-        String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
-
-        loginPage.loginAccount(username, privateKey, true);
-        loginPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
-    }
-
-    @Test
-    public void loginUserFromDropdownList() {
+    public void getStartedRedirectToLoginPage() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 
         getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
-        loginPage.loginAccount(username, privateKey, false);
+        importPage.isPageLoaded();
+        importPage.importAccount(username, privateKey, false);
         accountsPage.isPageLoaded();
         accountsPage.returnToGetStartedPage();
         getStartedPage.getStartedBtnClick();
-        loginPage.setAccount(username);
-
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
+        loginPage.checkDropdownWithAccount(username);
     }
-
 
     @AfterEach
     public void tearDown() {
