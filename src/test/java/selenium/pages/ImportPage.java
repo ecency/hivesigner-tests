@@ -1,6 +1,7 @@
 package selenium.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,10 +27,10 @@ public class ImportPage {
     @FindBy(xpath = "//div/button[@class='button-primary w-full block mb-2']")
     private WebElement loginBtn;
 
-    @FindBy(xpath = "//button[normalize-space()='Continue']")
+    @FindBy(xpath = "//div//button[@type=\"submit\"]")
     private WebElement continueBtn;
 
-    @FindBy(xpath = "//*[contains(text(), 'Don`t have an account?')]")
+    @FindBy(xpath = "//div//div[@class=\"mb-2\"]//div[@class='text-gray text-lg pt-4']/a[normalize-space()='Signup here']")
     private WebElement dontHaveAccount;
 
     @FindBy(id = "key")
@@ -96,18 +97,17 @@ public class ImportPage {
         clickContinueButton();
     }
 
-
-    public void setLocalPassword(String localPassword) {
-        inputHivesignerPassword(localPassword);
-        inputHivesignerPasswordConfirm(localPassword);
-        clickContinueButton();
-    }
-
     public void importAccount(String username, String privateKey, Boolean encrypted) {
         inputUserName(username);
         inputPrivateKey(privateKey);
         encryptLoginCheckBoxEnabled(encrypted);
         clickLoginButton();
+    }
+
+    public void setLocalPassword(String localPassword) {
+        inputHivesignerPassword(localPassword);
+        inputHivesignerPasswordConfirm(localPassword);
+        clickContinueButton();
     }
 
     public void isPageLoaded() {
@@ -117,6 +117,22 @@ public class ImportPage {
     public String getPageUrl() {
         String url = driver.getCurrentUrl();
         return url;
+    }
+
+    public boolean isUserNameFieldPresent() {
+        try {
+            return userNameInput.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isPrivateKeyFieldPresent() {
+        try {
+            return privateKeyInput.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
 }

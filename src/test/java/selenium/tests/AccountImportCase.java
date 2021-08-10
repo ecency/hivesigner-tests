@@ -106,8 +106,8 @@ public class AccountImportCase {
         String privateKey0 = ConfProperties.getProperty("privateKey");
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword2");
-        String localPassword2 = ConfProperties.getProperty("localPassword2");
+        String localPassword = ConfProperties.getProperty("localPassword");
+        String localPassword2 = ConfProperties.getProperty("localPasswordAlt");
 
         getStartedPage.getStartedBtnClick();
         importPage.isPageLoaded();
@@ -136,8 +136,6 @@ public class AccountImportCase {
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String username2 = ConfProperties.getProperty("userNameAlt2");
         String privateKey2 = ConfProperties.getProperty("privateKeyAlt2");
-
-
         String localPassword = ConfProperties.getProperty("localPassword");
 
         getStartedPage.getStartedBtnClick();
