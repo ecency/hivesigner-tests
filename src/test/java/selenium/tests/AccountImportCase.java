@@ -54,6 +54,7 @@ public class AccountImportCase {
         accountsPage.isPageLoaded();
         String curl = accountsPage.getAccountsPageUrl();
         Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
+        accountsPage.isAccountChosen(username);
     }
 
     @Test
@@ -70,6 +71,7 @@ public class AccountImportCase {
         accountsPage.isPageLoaded();
         String curl = accountsPage.getAccountsPageUrl();
         Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
+        accountsPage.isAccountChosen(username);
     }
 
     @Test
@@ -91,7 +93,10 @@ public class AccountImportCase {
 
         importPage.importAccount(username1, privateKey1, true);
         importPage.userSamePassword(true, localPassword);
+
         accountsPage.isPageLoaded();
+        String curl = accountsPage.getAccountsPageUrl();
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username1);
     }
 
@@ -115,7 +120,10 @@ public class AccountImportCase {
 
         importPage.importAccount(username1, privateKey1, true);
         importPage.userSamePassword(false, localPassword2);
+
         accountsPage.isPageLoaded();
+        String curl = accountsPage.getAccountsPageUrl();
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username1);
     }
 
@@ -150,6 +158,8 @@ public class AccountImportCase {
         importPage.userPasswordFromAccountSelector(username0,localPassword);
 
         accountsPage.isPageLoaded();
+        String curl = accountsPage.getAccountsPageUrl();
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username2);
     }
 
