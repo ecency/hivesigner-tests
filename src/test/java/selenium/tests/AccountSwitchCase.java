@@ -81,6 +81,48 @@ public class AccountSwitchCase {
         accountsPage.isAccountChosen(username0);
     }
 
+    @Test
+    public void switchToDecryptedAccountFromDropdownMenu(){
+        String username0 = ConfProperties.getProperty("userName");
+        String privateKey0 = ConfProperties.getProperty("privateKey");
+        String username1 = ConfProperties.getProperty("userNameAlt1");
+        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+        String localPassword = ConfProperties.getProperty("localPassword");
+
+        getStartedPage.getStartedBtnClick();
+        importPage.isPageLoaded();
+        importPage.importAccount(username0, privateKey0, false);
+        accountsPage.isPageLoaded();
+        accountsPage.addAccountClick();
+        importPage.importAccount(username1, privateKey1, true);
+        importPage.setLocalPassword(localPassword);
+
+        accountsPage.isPageLoaded();
+        accountsPage.chooseAccountFromDropDownList(username0, false,null);
+        accountsPage.isAccountChosen(username0);
+    }
+
+    @Test
+    public void switchToEncryptedAccountFromDropdownMenu(){
+        String username0 = ConfProperties.getProperty("userName");
+        String privateKey0 = ConfProperties.getProperty("privateKey");
+        String username1 = ConfProperties.getProperty("userNameAlt1");
+        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+        String localPassword = ConfProperties.getProperty("localPassword");
+
+        getStartedPage.getStartedBtnClick();
+        importPage.isPageLoaded();
+        importPage.importAccount(username0, privateKey0, true);
+        importPage.setLocalPassword(localPassword);
+        accountsPage.isPageLoaded();
+        accountsPage.addAccountClick();
+        importPage.importAccount(username1, privateKey1, false);
+
+        accountsPage.isPageLoaded();
+        accountsPage.chooseAccountFromDropDownList(username0,true, localPassword);
+        accountsPage.isAccountChosen(username0);
+    }
+
     @AfterEach
     public void tearDown() {
         if (driver != null) {
