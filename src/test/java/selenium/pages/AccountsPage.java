@@ -46,7 +46,7 @@ public class AccountsPage {
         accountsList.isDisplayed();
     }
 
-    public String getAccountsPageUrl() {
+    public String getPageUrl() {
         String url = driver.getCurrentUrl();
         return url;
     }

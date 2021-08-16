@@ -52,7 +52,7 @@ public class AccountImportCase {
         importPage.importAccount(username, privateKey, false);
 
         accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
+        String curl = accountsPage.getPageUrl();
         Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username);
     }
@@ -69,7 +69,7 @@ public class AccountImportCase {
         importPage.setLocalPassword(localPassword);
 
         accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
+        String curl = accountsPage.getPageUrl();
         Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username);
     }
@@ -95,7 +95,7 @@ public class AccountImportCase {
         importPage.userSamePassword(true, localPassword);
 
         accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
+        String curl = accountsPage.getPageUrl();
         Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username1);
     }
@@ -122,7 +122,7 @@ public class AccountImportCase {
         importPage.userSamePassword(false, localPassword2);
 
         accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
+        String curl = accountsPage.getPageUrl();
         Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username1);
     }
@@ -156,11 +156,10 @@ public class AccountImportCase {
         importPage.userPasswordFromAccountSelector(username0,localPassword);
 
         accountsPage.isPageLoaded();
-        String curl = accountsPage.getAccountsPageUrl();
+        String curl = accountsPage.getPageUrl();
         Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
         accountsPage.isAccountChosen(username2);
     }
-
 
     @AfterEach
     public void tearDown() {

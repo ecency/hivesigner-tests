@@ -10,18 +10,18 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
-import selenium.pages.AuthoritiesPage;
 import selenium.pages.GetStartedPage;
 import selenium.pages.ImportPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class UserAuthoritiesCase {
+
+public class RevokeAuthCase {
+
     public static WebDriver driver;
     public static GetStartedPage getStartedPage;
     public static ImportPage importPage;
     public static AccountsPage accountsPage;
-    public static AuthoritiesPage authoritiesPage;
     public static ScreenshotsHandler screenShotMake;
 
     @BeforeEach
@@ -34,51 +34,27 @@ public class UserAuthoritiesCase {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
-        authoritiesPage = new AuthoritiesPage(driver);
-
         screenShotMake = new ScreenshotsHandler(driver);
-    }
-
-    @Test
-    public void userAuthoritiesPageNavigate() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.importAccount(username, privateKey, false);
-
-        accountsPage.isPageLoaded();
-        accountsPage.authoritiesClick(username);
-
-        authoritiesPage.isPageLoaded();
-        String curl = authoritiesPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("authoritiesPageUrl"), curl);
-        authoritiesPage.isCorrectUser(username);
 
     }
 
     @Test
-    public void userHasKeysForHisLevel() {
+    public void addAccountWithPasswordFromDropdownList(){
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-        String userLevel = "owner";
 
-        getStartedPage.getStartedBtnClick();
-        importPage.importAccount(username, privateKey, false);
+        String oauthUrl =  ConfProperties.getProperty("oauth2Url");
+        String url = oauthUrl+username;
+        driver.get(url);
 
-        accountsPage.isPageLoaded();
-        accountsPage.authoritiesClick(username);
 
-        authoritiesPage.isPageLoaded();
-        authoritiesPage.keysCheck(userLevel);
+
 
     }
-
 
 
     @AfterEach
@@ -87,5 +63,4 @@ public class UserAuthoritiesCase {
             driver.quit();
         }
     }
-
 }

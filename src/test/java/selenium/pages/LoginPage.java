@@ -42,9 +42,9 @@ public class LoginPage {
         addAnotherAccBtn.click();
     }
 
-    public void setAccount(String account) {
+    public void chooseAccountFromSelect(String username) {
         accountDropdown.click();
-        WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class='select-option cursor-pointer py-4 px-5 hover:bg-primary-100 bg-gray-200']//div[@class='flex items-center justify-start'][normalize-space()='%s']", account)));
+        WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class='select-option cursor-pointer py-4 px-5 hover:bg-primary-100 bg-gray-200']//div[@class='flex items-center justify-start'][normalize-space()='%s']", username)));
         accountSelect.click();
         clickContinueButton();
     }

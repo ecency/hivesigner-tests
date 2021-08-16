@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AuthPage {
+public class AuthoritiesPage {
     public WebDriver driver;
 
-    public AuthPage(WebDriver driver) {
+    public AuthoritiesPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
@@ -40,7 +40,12 @@ public class AuthPage {
         Assertions.assertEquals(true, pageUserName.isDisplayed());
     }
 
-    public String getAccountsPageUrl() {
+    public void revokeBtnClick(String userName) {
+        WebElement revokeBtn = driver.findElement(By.xpath(String.format("//div//div[@class='auths-table']//a[normalize-space()='%s']/../following::div[1]", userName)));
+        revokeBtn.click();
+    }
+
+    public String getPageUrl() {
         String url = driver.getCurrentUrl();
         return url;
     }
