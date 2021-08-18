@@ -11,11 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
 import selenium.handlers.ScreenshotsHandler;
-import selenium.handlers.URLhandler;
 import selenium.pages.*;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collection;
@@ -23,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
 
 public class oAuthAndRevokeCase {
 
@@ -33,6 +30,8 @@ public class oAuthAndRevokeCase {
     public static AccountsPage accountsPage;
     public static OAuthPage oAuthPage;
     public static LoginPage loginPage;
+    public static AuthoritiesPage authoritiesPage;
+    public static RevokePage revokePage;
     public static ScreenshotsHandler screenShotMake;
 
 
@@ -52,8 +51,9 @@ public class oAuthAndRevokeCase {
         accountsPage = new AccountsPage(driver);
         loginPage = new LoginPage(driver);
         oAuthPage = new OAuthPage(driver);
+        revokePage = new RevokePage(driver);
+        authoritiesPage = new AuthoritiesPage(driver);
         screenShotMake = new ScreenshotsHandler(driver);
-
     }
 
     @Test
@@ -62,11 +62,11 @@ public class oAuthAndRevokeCase {
         String privateKey = ConfProperties.getProperty("privateKey");
 
         Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("redirect_uri", "https://google.ru");
+        queryParams.put("redirect_uri", "https://google.com");
         queryParams.put("response_type", "code");
-        queryParams.put("client_id", "demo.com");
+        queryParams.put("client_id", username);
 
-        String url = ConfProperties.getProperty("oauth2Url");
+        String url =  ConfProperties.getProperty("oauth2Url");
         Collection<String> queryParamsCollection = queryParams.keySet()
                 .stream()
                 .map(queryName -> queryName + "=" + queryParams.get(queryName))
@@ -78,16 +78,23 @@ public class oAuthAndRevokeCase {
         importPage.isPageLoaded();
         importPage.importAccount(username, privateKey, false);
 
+        oAuthPage.isPageLoaded();
         oAuthPage.authorizeBtnClick();
 
-        WebElement googleinput = driver.findElement(By.xpath("//div//input[@class='gLFyf gsfi']"));
-        googleinput.isDisplayed();
+        WebElement googleInput = driver.findElement(By.xpath("//div//input[@class='gLFyf gsfi']"));
+        googleInput.isDisplayed();
 
         URL newURL = new URL(driver.getCurrentUrl());
-
         Assertions.assertEquals(queryParams.get("redirect_uri"), newURL.getHost() + newURL.getPath());
         Assertions.assertTrue(newURL.getQuery().contains("code="));
-        Assertions.assertEquals(true, oAuthPage.isSuccessMessagePresent());
+
+        driver.get(ConfProperties.getProperty("accountsPageUrl"));
+        accountsPage.isPageLoaded();
+        accountsPage.authoritiesClick(username);
+        authoritiesPage.revokeBtnClick(username);
+        revokePage.isPageLoaded();
+        revokePage.revokeBtnClick();
+        Assertions.assertTrue(revokePage.isSuccessMessagePresent());
 
     }
 
