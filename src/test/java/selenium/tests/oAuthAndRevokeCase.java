@@ -4,14 +4,25 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
 import selenium.handlers.ScreenshotsHandler;
+import selenium.handlers.URLhandler;
 import selenium.pages.*;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 public class oAuthAndRevokeCase {
@@ -46,27 +57,42 @@ public class oAuthAndRevokeCase {
     }
 
     @Test
-    public void oauthAndRevokeUserNewUserCase(){
+    public void oauthAndRevokeUserNewUserCase() throws URISyntaxException, MalformedURLException {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 
-        String url =  ConfProperties.getProperty("oauth2Url");
-        String oauthUrl = url+username;
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("redirect_uri", "https://google.ru");
+        queryParams.put("response_type", "code");
+        queryParams.put("client_id", "demo.com");
+
+        String url = ConfProperties.getProperty("oauth2Url");
+        Collection<String> queryParamsCollection = queryParams.keySet()
+                .stream()
+                .map(queryName -> queryName + "=" + queryParams.get(queryName))
+                .collect(Collectors.toList());
+        String query = String.join("&", queryParamsCollection);
+        String oauthUrl = url + "?" + query;
 
         driver.get(oauthUrl);
         importPage.isPageLoaded();
         importPage.importAccount(username, privateKey, false);
-        oAuthPage.isPageLoaded();
-        oAuthPage.headerEmailCheck(username);
-        oAuthPage.authorizeBtnClick();
-        oAuthPage.isPageLoaded();
 
+        oAuthPage.authorizeBtnClick();
+
+        WebElement googleinput = driver.findElement(By.xpath("//div//input[@class='gLFyf gsfi']"));
+        googleinput.isDisplayed();
+
+        URL newURL = new URL(driver.getCurrentUrl());
+
+        Assertions.assertEquals(queryParams.get("redirect_uri"), newURL.getHost() + newURL.getPath());
+        Assertions.assertTrue(newURL.getQuery().contains("code="));
         Assertions.assertEquals(true, oAuthPage.isSuccessMessagePresent());
 
     }
 
     @Test
-    public void oauthAndRevokeExistedUserCase(){
+    public void oauthAndRevokeExistedUserCase() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 
@@ -75,8 +101,8 @@ public class oAuthAndRevokeCase {
         importPage.importAccount(username, privateKey, false);
         accountsPage.isPageLoaded();
 
-        String url =  ConfProperties.getProperty("oauth2Url");
-        String oauthUrl = url+username;
+        String url = ConfProperties.getProperty("oauth2Url");
+        String oauthUrl = url + username;
         driver.get(oauthUrl);
 
         oAuthPage.isPageLoaded();
@@ -85,7 +111,6 @@ public class oAuthAndRevokeCase {
 
         loginPage.isPageLoaded();
         loginPage.chooseAccountFromSelect(username);
-
 
 
     }
