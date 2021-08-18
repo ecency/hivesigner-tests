@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
+import selenium.handlers.LocalStorageHandler;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
@@ -22,6 +23,7 @@ public class AccountImportCase {
     public static ImportPage importPage;
     public static AccountsPage accountsPage;
     public static ScreenshotsHandler screenShotMake;
+    public static LocalStorageHandler localStorageHandler;
 
     @BeforeEach
     public void setup() {
@@ -34,7 +36,6 @@ public class AccountImportCase {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("getStartedPageUrl"));
-
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
@@ -75,7 +76,7 @@ public class AccountImportCase {
     }
 
     @Test
-    public void addAccountWithSamePasswordInput(){
+    public void addAccountWithSamePasswordInput() {
         String username0 = ConfProperties.getProperty("userName");
         String privateKey0 = ConfProperties.getProperty("privateKey");
         String username1 = ConfProperties.getProperty("userNameAlt1");
@@ -101,7 +102,7 @@ public class AccountImportCase {
     }
 
     @Test
-    public void addAccountWithOtherPasswordInput(){
+    public void addAccountWithOtherPasswordInput() {
         String username0 = ConfProperties.getProperty("userName");
         String privateKey0 = ConfProperties.getProperty("privateKey");
         String username1 = ConfProperties.getProperty("userNameAlt1");
@@ -129,7 +130,7 @@ public class AccountImportCase {
 
 
     @Test
-    public void addAccountWithPasswordFromDropdownList(){
+    public void addAccountWithPasswordFromDropdownList() {
         String username0 = ConfProperties.getProperty("userName");
         String privateKey0 = ConfProperties.getProperty("privateKey");
         String username1 = ConfProperties.getProperty("userNameAlt1");
@@ -153,7 +154,7 @@ public class AccountImportCase {
         accountsPage.isPageLoaded();
         accountsPage.addAccountClick();
         importPage.importAccount(username2, privateKey2, true);
-        importPage.userPasswordFromAccountSelector(username0,localPassword);
+        importPage.userPasswordFromAccountSelector(username0, localPassword);
 
         accountsPage.isPageLoaded();
         String curl = accountsPage.getPageUrl();
@@ -163,6 +164,7 @@ public class AccountImportCase {
 
     @AfterEach
     public void tearDown() {
+        localStorageHandler.clearLocalStorage();
         if (driver != null) {
             driver.quit();
         }

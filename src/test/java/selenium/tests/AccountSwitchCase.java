@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
+import selenium.handlers.LocalStorageHandler;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
@@ -20,6 +21,7 @@ public class AccountSwitchCase {
     public static ImportPage importPage;
     public static AccountsPage accountsPage;
     public static ScreenshotsHandler screenShotMake;
+    public static LocalStorageHandler localStorageHandler;
 
     @BeforeEach
     public void setup() {
@@ -125,6 +127,7 @@ public class AccountSwitchCase {
 
     @AfterEach
     public void tearDown() {
+        localStorageHandler.clearLocalStorage();
         if (driver != null) {
             driver.quit();
         }

@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
+import selenium.handlers.LocalStorageHandler;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.*;
 
@@ -32,7 +33,8 @@ public class oAuthAndRevokeCase {
     public static LoginPage loginPage;
     public static AuthoritiesPage authoritiesPage;
     public static RevokePage revokePage;
-    public static ScreenshotsHandler screenShotMake;
+    public static ScreenshotsHandler screenShotMaker;
+    public static LocalStorageHandler localStorageHandler;
 
 
     @BeforeEach
@@ -53,7 +55,7 @@ public class oAuthAndRevokeCase {
         oAuthPage = new OAuthPage(driver);
         revokePage = new RevokePage(driver);
         authoritiesPage = new AuthoritiesPage(driver);
-        screenShotMake = new ScreenshotsHandler(driver);
+        screenShotMaker = new ScreenshotsHandler(driver);
     }
 
     @Test
@@ -122,9 +124,9 @@ public class oAuthAndRevokeCase {
 
     }
 
-
     @AfterEach
     public void tearDown() {
+        localStorageHandler.clearLocalStorage();
         if (driver != null) {
             driver.quit();
         }
