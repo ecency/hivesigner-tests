@@ -1,9 +1,6 @@
 package selenium.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,16 +9,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
 import selenium.handlers.LocalStorageHandler;
 import selenium.handlers.ScreenshotsHandler;
+import selenium.handlers.URLhandler;
 import selenium.pages.*;
-
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+
+
 
 public class oAuthAndRevokeCase {
 
@@ -35,6 +30,7 @@ public class oAuthAndRevokeCase {
     public static RevokePage revokePage;
     public static ScreenshotsHandler screenShotMaker;
     public static LocalStorageHandler localStorageHandler;
+    public static URLhandler urlHandler;
 
 
     @BeforeEach
@@ -57,26 +53,16 @@ public class oAuthAndRevokeCase {
         authoritiesPage = new AuthoritiesPage(driver);
         localStorageHandler = new LocalStorageHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
+        urlHandler = new URLhandler("https://www.google.com", "code", ConfProperties.getProperty("userName"));
     }
 
+    @Disabled("Flaky. Test depends from account balance")
     @Test
     public void oauthAndRevokeUserNewUserCase() throws URISyntaxException, MalformedURLException {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 
-        Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("redirect_uri", "https://google.com");
-        queryParams.put("response_type", "code");
-        queryParams.put("client_id", username);
-
-        String url =  ConfProperties.getProperty("oauth2Url");
-        Collection<String> queryParamsCollection = queryParams.keySet()
-                .stream()
-                .map(queryName -> queryName + "=" + queryParams.get(queryName))
-                .collect(Collectors.toList());
-        String query = String.join("&", queryParamsCollection);
-        String oauthUrl = url + "?" + query;
-
+        String oauthUrl = urlHandler.getOAuthUrl();
         driver.get(oauthUrl);
         importPage.isPageLoaded();
         importPage.importAccount(username, privateKey, false);
@@ -88,8 +74,8 @@ public class oAuthAndRevokeCase {
         googleInput.isDisplayed();
 
         URL newURL = new URL(driver.getCurrentUrl());
-        Assertions.assertEquals(queryParams.get("redirect_uri"), newURL.getHost() + newURL.getPath());
         Assertions.assertTrue(newURL.getQuery().contains("code="));
+        Assertions.assertEquals(urlHandler.getRedirectUri(), newURL.getProtocol()+ "://" + newURL.getHost());
 
         driver.get(ConfProperties.getProperty("accountsPageUrl"));
         accountsPage.isPageLoaded();
@@ -100,9 +86,9 @@ public class oAuthAndRevokeCase {
         Assertions.assertTrue(revokePage.isSuccessMessagePresent());
 
     }
-
+    @Disabled("Flaky. Test depends from account balance")
     @Test
-    public void oauthAndRevokeExistedUserCase() {
+    public void oauthAndRevokeExistedUserCase() throws MalformedURLException {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 
@@ -111,9 +97,8 @@ public class oAuthAndRevokeCase {
         importPage.importAccount(username, privateKey, false);
         accountsPage.isPageLoaded();
 
-        String url = ConfProperties.getProperty("oauth2Url");
-        String oauthUrl = url + username;
-        driver.get(oauthUrl);
+        String oauthUrl = urlHandler.getOAuthUrl();
+        driver.get(oauthUrl);;
 
         oAuthPage.isPageLoaded();
         oAuthPage.headerEmailCheck(username);
@@ -122,6 +107,20 @@ public class oAuthAndRevokeCase {
         loginPage.isPageLoaded();
         loginPage.chooseAccountFromSelect(username);
 
+        WebElement googleInput = driver.findElement(By.xpath("//div//input[@class='gLFyf gsfi']"));
+        googleInput.isDisplayed();
+
+        URL newURL = new URL(driver.getCurrentUrl());
+        Assertions.assertTrue(newURL.getQuery().contains("code="));
+        Assertions.assertEquals(urlHandler.getRedirectUri(), newURL.getProtocol()+ "://" + newURL.getHost());
+
+        driver.get(ConfProperties.getProperty("accountsPageUrl"));
+        accountsPage.isPageLoaded();
+        accountsPage.authoritiesClick(username);
+        authoritiesPage.revokeBtnClick(username);
+        revokePage.isPageLoaded();
+        revokePage.revokeBtnClick();
+        Assertions.assertTrue(revokePage.isSuccessMessagePresent());
 
     }
 

@@ -40,8 +40,6 @@ public class RevokePage {
         }
     }
 
-
-
     public String getPageUrl() {
         String url = driver.getCurrentUrl();
         return url;
