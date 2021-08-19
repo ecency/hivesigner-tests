@@ -23,7 +23,7 @@ public class UserAuthoritiesCase {
     public static ImportPage importPage;
     public static AccountsPage accountsPage;
     public static AuthoritiesPage authoritiesPage;
-    public static ScreenshotsHandler screenShotMake;
+    public static ScreenshotsHandler screenShotMaker;
     public static LocalStorageHandler localStorageHandler;
 
     @BeforeEach
@@ -42,8 +42,8 @@ public class UserAuthoritiesCase {
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
         authoritiesPage = new AuthoritiesPage(driver);
-
-        screenShotMake = new ScreenshotsHandler(driver);
+        localStorageHandler = new LocalStorageHandler(driver);
+        screenShotMaker = new ScreenshotsHandler(driver);
     }
 
     @Test

@@ -23,7 +23,7 @@ public class AccountLoginCase {
     public static ImportPage importPage;
     public static AccountsPage accountsPage;
     public static LoginPage loginPage;
-    public static ScreenshotsHandler screenShotMake;
+    public static ScreenshotsHandler screenShotMaker;
     public static LocalStorageHandler localStorageHandler;
 
     @BeforeEach
@@ -42,7 +42,8 @@ public class AccountLoginCase {
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
         loginPage = new LoginPage(driver);
-        screenShotMake = new ScreenshotsHandler(driver);
+        localStorageHandler = new LocalStorageHandler(driver);
+        screenShotMaker = new ScreenshotsHandler(driver);
 
     }
 

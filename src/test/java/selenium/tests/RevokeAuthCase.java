@@ -23,7 +23,7 @@ public class RevokeAuthCase {
     public static GetStartedPage getStartedPage;
     public static ImportPage importPage;
     public static AccountsPage accountsPage;
-    public static ScreenshotsHandler screenShotMake;
+    public static ScreenshotsHandler screenShotMaker;
     public static LocalStorageHandler localStorageHandler;
 
     @BeforeEach
@@ -40,7 +40,8 @@ public class RevokeAuthCase {
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
-        screenShotMake = new ScreenshotsHandler(driver);
+        localStorageHandler = new LocalStorageHandler(driver);
+        screenShotMaker = new ScreenshotsHandler(driver);
 
     }
 

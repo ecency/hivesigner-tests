@@ -55,6 +55,7 @@ public class oAuthAndRevokeCase {
         oAuthPage = new OAuthPage(driver);
         revokePage = new RevokePage(driver);
         authoritiesPage = new AuthoritiesPage(driver);
+        localStorageHandler = new LocalStorageHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
     }
 
