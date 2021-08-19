@@ -58,7 +58,7 @@ public class oAuthAndRevokeCase {
 
     @Disabled("Flaky. Test depends from account balance")
     @Test
-    public void oauthAndRevokeUserNewUserCase() throws URISyntaxException, MalformedURLException {
+    public void oauthAndRevokeNewUserCase() throws URISyntaxException, MalformedURLException {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
 

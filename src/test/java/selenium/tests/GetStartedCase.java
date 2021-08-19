@@ -70,6 +70,23 @@ public class GetStartedCase {
         loginPage.checkDropdownWithAccount(username);
     }
 
+    @Test
+    public void gotoGetStartedPageAfterAccRemoved(){
+        String username = ConfProperties.getProperty("userName");
+        String privateKey = ConfProperties.getProperty("privateKey");
+
+        getStartedPage.getStartedBtnClick();
+        importPage.isPageLoaded();
+        importPage.importAccount(username, privateKey, false);
+        accountsPage.isPageLoaded();
+        accountsPage.removeAccountClick(username);
+        getStartedPage.isPageLoaded();
+
+        String curl = getStartedPage.getPageUrl();
+        Assertions.assertEquals(curl, ConfProperties.getProperty("getStartedPageUrl"));
+    }
+
+
     @AfterEach
     public void tearDown() {
         localStorageHandler.clearLocalStorage();

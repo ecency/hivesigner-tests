@@ -25,5 +25,9 @@ public class GetStartedPage {
         return url;
     }
 
+    public void isPageLoaded() {
+        getStartedBtn.isDisplayed();
+    }
+
 
 }

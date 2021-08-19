@@ -42,6 +42,12 @@ public class AccountsPage {
     @FindBy(xpath = "//div/div[@class='hidden md:block']//div[@class='icon absolute right-4 top-4 cursor-pointer text-gray hover:text-black']")
     private WebElement accountDropdownListBottomClose;
 
+    @FindBy(xpath = "//div//a[normalize-space()='Remove from Hivesigner']")
+    private WebElement removeBtn;
+
+    @FindBy(xpath = "//div//a[normalize-space()='Remove']")
+    private WebElement removeConfirmBtn;
+
     public void isPageLoaded() {
         accountsList.isDisplayed();
     }
@@ -80,6 +86,13 @@ public class AccountsPage {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']/..", username)));
         confirmIcon.click();
         authorities.click();
+    }
+
+    public void removeAccountClick(String username) {
+        WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']/..", username)));
+        confirmIcon.click();
+        removeBtn.click();
+        removeConfirmBtn.click();
     }
 
     public void checkEncryptedOrNotIcon(String username, boolean encryptedStatus) {
