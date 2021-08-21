@@ -5,14 +5,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import selenium.ConfProperties;
 
 public class RevokePage {
-    public WebDriver driver;
+    private WebDriver driver;
 
     public RevokePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
+
+    public static RevokePage using(WebDriver driver) {
+        return new RevokePage(driver);
+    }
+
+//    public RevokePage navigateToPage() {
+//        driver.get(ConfProperties.getProperty("oauth2Url"));
+//        return this;
+//    }
 
     @FindBy(xpath = "//div/p[@class=\"text-black-400 text-lg\"]")
     private WebElement successMessage;
@@ -23,12 +33,14 @@ public class RevokePage {
     @FindBy(xpath = "//div//div//button[normalize-space()='Revoke']")
     private WebElement revokeBtn;
 
-    public void revokeBtnClick(){
-        revokeBtn.click();
+    public RevokePage revokeBtnClick(){
+        this.revokeBtn.click();
+        return this;
     }
 
-    public void isPageLoaded() {
-       revokeImg.isDisplayed();
+    public RevokePage isPageLoaded() {
+        this.revokeImg.isDisplayed();
+        return this;
     }
 
     public boolean isSuccessMessagePresent() {
@@ -40,7 +52,6 @@ public class RevokePage {
     }
 
     public String getPageUrl() {
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
 }

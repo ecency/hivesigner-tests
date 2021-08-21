@@ -6,13 +6,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import selenium.ConfProperties;
 
 public class AuthoritiesPage {
-    public WebDriver driver;
+    private WebDriver driver;
 
     public AuthoritiesPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+    }
+
+    public static AuthoritiesPage using(WebDriver driver) {
+        return new AuthoritiesPage(driver);
+    }
+
+    public AuthoritiesPage navigateToPage() {
+        driver.get(ConfProperties.getProperty("authoritiesPageUrl"));
+        return this;
     }
 
     @FindBy(xpath = "//div[@class='text-xs tracking-wider uppercase text-gray']")
@@ -31,26 +41,28 @@ public class AuthoritiesPage {
     private WebElement memoKey;
 
 
-    public void isPageLoaded() {
-        usernameTitle.isDisplayed();
+    public AuthoritiesPage isPageLoaded() {
+        this.usernameTitle.isDisplayed();
+        return this;
     }
 
-    public void isCorrectUser(String username) {
+    public AuthoritiesPage isCorrectUser(String username) {
         WebElement pageUserName = driver.findElement(By.xpath(String.format("//div[@class='text-xs tracking-wider uppercase text-gray']//..//div[contains(string(), '%s')]", username)));
-        Assertions.assertEquals(true, pageUserName.isDisplayed());
+        Assertions.assertTrue(pageUserName.isDisplayed());
+        return this;
     }
 
-    public void revokeBtnClick(String userName) {
+    public AuthoritiesPage revokeBtnClick(String userName) {
         WebElement revokeBtn = driver.findElement(By.xpath(String.format("//div//div[@class='auths-table']//a[normalize-space()='%s']/../following::div[1]", userName)));
         revokeBtn.click();
+        return this;
     }
 
     public String getPageUrl() {
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
 
-    public void keysCheck(String userLevel) {
+    public AuthoritiesPage keysCheck(String userLevel) {
         switch (userLevel) {
             case "owner":
                 ownerKey.isDisplayed();
@@ -69,8 +81,7 @@ public class AuthoritiesPage {
                 memoKey.isDisplayed();
                 break;
             }
-
-
         }
+        return this;
     }
 }

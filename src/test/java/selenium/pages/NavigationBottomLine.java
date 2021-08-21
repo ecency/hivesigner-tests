@@ -6,11 +6,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class NavigationBottomLine {
-    public WebDriver driver;
+    private WebDriver driver;
 
     public NavigationBottomLine(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+    }
+
+    public static NavigationBottomLine using(WebDriver driver) {
+        return new NavigationBottomLine(driver);
     }
 
     @FindBy(xpath = "//div[@class='flex w-full pt-28 hidden sm:flex items-center justify-between']//a[normalize-space()='Apps']")
@@ -29,23 +33,28 @@ public class NavigationBottomLine {
     private WebElement aboutBottomLink;
 
 
-    public void appsClick(){
-        appsBottomLink.click();
+    public NavigationBottomLine appsClick(){
+        this.appsBottomLink.click();
+        return this;
     }
 
-    public void accountsClick(){
-        accountsBottomLink.click();
+    public NavigationBottomLine accountsClick(){
+        this.accountsBottomLink.click();
+        return this;
     }
 
-    public void signerClick(){
-        signerBottomLink.click();
+    public NavigationBottomLine signerClick(){
+        this.signerBottomLink.click();
+        return this;
     }
 
-    public void docsClick(){
-        docsBottomLink.click();
+    public NavigationBottomLine docsClick(){
+        this.docsBottomLink.click();
+        return this;
     }
 
-    public void aboutClick(){
-        aboutBottomLink.click();
+    public NavigationBottomLine aboutClick(){
+        this.aboutBottomLink.click();
+        return this;
     }
 }

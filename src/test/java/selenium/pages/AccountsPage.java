@@ -6,13 +6,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import selenium.ConfProperties;
 
 public class AccountsPage {
-    public WebDriver driver;
+    private WebDriver driver;
 
     public AccountsPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
         this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    public static AccountsPage using(WebDriver driver) {
+        return new AccountsPage(driver);
+    }
+
+    public AccountsPage navigateToPage() {
+        driver.get(ConfProperties.getProperty("accountsPageUrl"));
+        return this;
     }
 
     @FindBy(css = ".accounts-list")
@@ -48,75 +58,84 @@ public class AccountsPage {
     @FindBy(xpath = "//div//a[normalize-space()='Remove']")
     private WebElement removeConfirmBtn;
 
-    public void isPageLoaded() {
+    public AccountsPage isPageLoaded() {
         accountsList.isDisplayed();
+        return this;
     }
 
     public String getPageUrl() {
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
 
-    public void addAccountClick() {
-        addAnotherAccBtn.click();
+    public AccountsPage addAccountClick() {
+        this.addAnotherAccBtn.click();
+        return this;
     }
 
-    public void chooseAccount(String username) {
+    public AccountsPage chooseAccount(String username) {
         WebElement account = driver.findElement(By.xpath(String.format("//span[normalize-space()='%s']", username)));
         account.click();
+        return this;
     }
 
-    public void isAccountChosen(String username) {
+    public AccountsPage isAccountChosen(String username) {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']//..//*[local-name()='svg']", username)));
-        Assertions.assertEquals(true, confirmIcon.isDisplayed());
+        Assertions.assertTrue(confirmIcon.isDisplayed());
+        return this;
     }
 
-    public void returnToGetStartedPage() {
-        logoImg.click();
+    public AccountsPage returnToGetStartedPage() {
+        this.logoImg.click();
+        return this;
     }
 
-    public void inputConfirmLocalPassword(String password) {
-        Assertions.assertEquals(true, confirmPasswordPanel.isDisplayed());
-        confirmLocalPassword.sendKeys(password);
-        getConfirmLocalPasswordLogin.click();
+    public AccountsPage inputConfirmLocalPassword(String password) {
+        Assertions.assertTrue(confirmPasswordPanel.isDisplayed());
+        this.confirmLocalPassword.sendKeys(password);
+        this.getConfirmLocalPasswordLogin.click();
+        return this;
     }
 
-    public void authoritiesClick(String username) {
+    public AccountsPage authoritiesClick(String username) {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']/..", username)));
         confirmIcon.click();
-        authorities.click();
+        this.authorities.click();
+        return this;
     }
 
-    public void removeAccountClick(String username) {
+    public AccountsPage removeAccountClick(String username) {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']/..", username)));
         confirmIcon.click();
-        removeBtn.click();
-        removeConfirmBtn.click();
+        this.removeBtn.click();
+        this.removeConfirmBtn.click();
+        return this;
     }
 
-    public void checkEncryptedOrNotIcon(String username, boolean encryptedStatus) {
+    public AccountsPage checkEncryptedOrNotIcon(String username, boolean encryptedStatus) {
         String title;
         if (encryptedStatus == true) {
             title = "Encrypted";
         } else {
             title = "Decrypted";
         }
-        accountDropdownListBottom.click();
+        this.accountDropdownListBottom.click();
         WebElement encryptedOrNotIcon = driver.findElement(By.xpath(String.format("//div/div[@class='hidden md:block']//div[normalize-space()='%s']/../../a[@title='%s']", username, title)));
         Assertions.assertTrue(encryptedOrNotIcon.isDisplayed());
+        return this;
     }
 
-    public void chooseAccountFromDropDownList(String username,boolean encrypted, String password) {
-        accountDropdownListBottom.click();
+    public AccountsPage chooseAccountFromDropDownList(String username,boolean encrypted, String password) {
+        this.accountDropdownListBottom.click();
         WebElement account = driver.findElement(By.xpath(String.format("//div/div[@class='hidden md:block']//div[@class='overflow-y-auto']//div[normalize-space()='%s']", username)));
         if (encrypted == false) {
             checkEncryptedOrNotIcon(username, false);
             account.click();
-            accountDropdownListBottomClose.click();
+            this.accountDropdownListBottomClose.click();
         } else {
             checkEncryptedOrNotIcon(username, true);
             account.click();
             inputConfirmLocalPassword(password);
         }
+        return this;
     }
 }

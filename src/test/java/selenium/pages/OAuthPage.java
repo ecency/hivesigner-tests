@@ -7,19 +7,29 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import selenium.ConfProperties;
 
 public class OAuthPage {
-    public WebDriver driver;
+    private WebDriver driver;
 
     public OAuthPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
+    public static OAuthPage using(WebDriver driver) {
+        return new OAuthPage(driver);
+    }
+
+    public OAuthPage navigateToPage() {
+        driver.get(ConfProperties.getProperty("oauth2Url"));
+        return this;
+    }
+
     @FindBy(xpath = "//div//button[contains(text(), 'Authorize')]")
     private WebElement authorizeBtn;
 
-    @FindBy(xpath = "//div//h4[@class=\'mt-2 text-xl font-bold text-black-500\']")
+    @FindBy(xpath = "//div//h4[@class='mt-2 text-xl font-bold text-black-500']")
     private WebElement headerEmail;
 
     @FindBy(xpath = "//div//a[contains(text(), 'Accounts')]")
@@ -28,24 +38,24 @@ public class OAuthPage {
     @FindBy(xpath = "//div[contains(text(),'Transaction has been successfully broadcasted')]")
     private WebElement successMessage;
 
-
-    public void authorizeBtnClick() {
-        authorizeBtn.click();
+    public OAuthPage authorizeBtnClick() {
+        this.authorizeBtn.click();
+        return this;
     }
 
-    public void headerEmailCheck(String username) {
-        Assertions.assertEquals(headerEmail.getText(), username);
+    public OAuthPage headerEmailCheck(String username) {
+        Assertions.assertEquals(this.headerEmail.getText(), username);
+        return this;
     }
 
-    public void isPageLoaded() {
-        authorizeBtn.isDisplayed();
+    public OAuthPage isPageLoaded() {
+        this.authorizeBtn.isDisplayed();
+        return this;
     }
 
     public String getPageUrl() {
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
-
 
     public boolean isSuccessMessagePresent() {
         try {

@@ -6,13 +6,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import selenium.ConfProperties;
 
 public class ImportPage {
-    public WebDriver driver;
+    private WebDriver driver;
 
     public ImportPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+    }
+
+    public static ImportPage using(WebDriver driver) {
+        return new ImportPage(driver);
+    }
+
+    public ImportPage navigateToPage() {
+        driver.get(ConfProperties.getProperty("importPageUrl"));
+        return this;
     }
 
     @FindBy(xpath = "//*[@id=\"username\"]")
@@ -45,81 +55,92 @@ public class ImportPage {
     @FindBy(xpath = "//span[@class='text-lg']/..")
     private WebElement accountPasswordSelector;
 
-    public void inputUserName(String login) {
-        userNameInput.sendKeys(login);
+    public ImportPage inputUserName(String login) {
+        this.userNameInput.sendKeys(login);
+        return this;
     }
 
-    public void inputPrivateKey(String privateKey) {
-        privateKeyInput.sendKeys(privateKey);
+    public ImportPage inputPrivateKey(String privateKey) {
+        this.privateKeyInput.sendKeys(privateKey);
+        return this;
     }
 
-    public void clickLoginButton() {
-        loginBtn.click();
+    public ImportPage clickLoginButton() {
+        this.loginBtn.click();
+        return this;
     }
 
-    public void clickContinueButton() {
-        continueBtn.click();
+    public ImportPage clickContinueButton() {
+        this.continueBtn.click();
+        return this;
     }
 
-    public void encryptLoginCheckBoxEnabled(Boolean status) {
+    public ImportPage encryptLoginCheckBoxEnabled(Boolean status) {
         if (status == false) {
-            encryptYourLoginCheckBox.click();
+            this.encryptYourLoginCheckBox.click();
         }
+        return this;
     }
 
-    public void inputHivesignerPassword(String password) {
-        hivesignerPasswordInput.sendKeys(password);
+    public ImportPage inputHivesignerPassword(String password) {
+        this.hivesignerPasswordInput.sendKeys(password);
+        return this;
     }
 
-    public void inputHivesignerPasswordConfirm(String password) {
-        hivesignerPasswordConfirmInput.sendKeys(password);
+    public ImportPage inputHivesignerPasswordConfirm(String password) {
+        this.hivesignerPasswordConfirmInput.sendKeys(password);
+        return this;
     }
 
-    public void userSamePassword(Boolean status, String password) {
+    public ImportPage userSamePassword(Boolean status, String password) {
         if (status == true) {
-            userSamePasswordCheckbox.click();
+            this.userSamePasswordCheckbox.click();
             inputHivesignerPasswordConfirm(password);
         } else {
             inputHivesignerPassword(password);
             inputHivesignerPasswordConfirm(password);
         }
         clickContinueButton();
+        return this;
     }
 
-    public void userPasswordFromAccountSelector(String account, String password) {
-        userSamePasswordCheckbox.click();
-        accountPasswordSelector.click();
+    public ImportPage userPasswordFromAccountSelector(String account, String password) {
+        this.userSamePasswordCheckbox.click();
+        this.accountPasswordSelector.click();
         WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class=\"dropdown relative\"]//a[normalize-space()='%s']", account)));
         accountSelect.click();
         inputHivesignerPasswordConfirm(password);
         clickContinueButton();
+        return this;
     }
 
-    public void importAccount(String username, String privateKey, Boolean encrypted) {
+    public ImportPage importAccount(String username, String privateKey, Boolean encrypted) {
         inputUserName(username);
         inputPrivateKey(privateKey);
         encryptLoginCheckBoxEnabled(encrypted);
         clickLoginButton();
+        return this;
     }
 
-    public void setLocalPassword(String localPassword) {
+    public ImportPage setLocalPassword(String localPassword) {
         inputHivesignerPassword(localPassword);
         inputHivesignerPasswordConfirm(localPassword);
         clickContinueButton();
+        return this;
     }
 
-    public void isPageLoaded() {
-        dontHaveAccount.isDisplayed();
+    public ImportPage isPageLoaded() {
+        this.dontHaveAccount.isDisplayed();
+        return this;
     }
 
     public String getPageUrl() {
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
 
     public boolean isUserNameFieldPresent() {
         try {
-            return userNameInput.isDisplayed();
+            return this.userNameInput.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -127,7 +148,7 @@ public class ImportPage {
 
     public boolean isPrivateKeyFieldPresent() {
         try {
-            return privateKeyInput.isDisplayed();
+            return this.privateKeyInput.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
