@@ -36,6 +36,7 @@ public class AccountImportCase {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
@@ -48,15 +49,15 @@ public class AccountImportCase {
     public void accountImportNoEncrypt() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, false);
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
-        accountsPage.isAccountChosen(username);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .isAccountChosen(username);
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
     }
 
     @Test
@@ -64,16 +65,15 @@ public class AccountImportCase {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
         String localPassword = ConfProperties.getProperty("localPassword");
-
         getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, true);
-        importPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
-        accountsPage.isAccountChosen(username);
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .isAccountChosen(username);
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
     }
 
     @Test
@@ -83,23 +83,22 @@ public class AccountImportCase {
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-
-        importPage.importAccount(username0, privateKey0, true);
-        importPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-
-        importPage.importAccount(username1, privateKey1, true);
-        importPage.userSamePassword(true, localPassword);
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
-        accountsPage.isAccountChosen(username1);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, true)
+                .userSamePassword(true, localPassword);
+        accountsPage
+                .isPageLoaded()
+                .isAccountChosen(username1);
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
     }
 
     @Test
@@ -110,25 +109,23 @@ public class AccountImportCase {
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
         String localPassword2 = ConfProperties.getProperty("localPasswordAlt");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-
-        importPage.importAccount(username0, privateKey0, true);
-        importPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-
-        importPage.importAccount(username1, privateKey1, true);
-        importPage.userSamePassword(false, localPassword2);
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
-        accountsPage.isAccountChosen(username1);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, true)
+                .userSamePassword(false, localPassword2);
+        accountsPage
+                .isPageLoaded()
+                .isAccountChosen(username1);
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
     }
-
 
     @Test
     public void addAccountWithPasswordFromDropdownList() {
@@ -139,28 +136,28 @@ public class AccountImportCase {
         String username2 = ConfProperties.getProperty("userNameAlt2");
         String privateKey2 = ConfProperties.getProperty("privateKeyAlt2");
         String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-
-        importPage.importAccount(username0, privateKey0, true);
-        importPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-
-        importPage.importAccount(username1, privateKey1, true);
-        importPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-        importPage.importAccount(username2, privateKey2, true);
-        importPage.userPasswordFromAccountSelector(username0, localPassword);
-
-        accountsPage.isPageLoaded();
-        String curl = accountsPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), curl);
-        accountsPage.isAccountChosen(username2);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username2, privateKey2, true)
+                .userPasswordFromAccountSelector(username0, localPassword);
+        accountsPage
+                .isPageLoaded()
+                .isAccountChosen(username2);
+        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
     }
 
     @AfterEach

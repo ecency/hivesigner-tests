@@ -58,31 +58,33 @@ public class oAuthAndRevokeCase {
 
     @Disabled("Flaky. Test depends from account balance")
     @Test
-    public void oauthAndRevokeNewUserCase() throws URISyntaxException, MalformedURLException {
+    public void oauthAndRevokeNewUserCase() throws MalformedURLException {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-
         String oauthUrl = urlHandler.getOAuthUrl();
-        driver.get(oauthUrl);
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, false);
-
-        oAuthPage.isPageLoaded();
-        oAuthPage.authorizeBtnClick();
-
+        oAuthPage
+                .navigateToPage(oauthUrl);
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, false);
+        oAuthPage
+                .isPageLoaded()
+                .authorizeBtnClick();
         WebElement googleInput = driver.findElement(By.xpath("//div//input[@class='gLFyf gsfi']"));
         googleInput.isDisplayed();
-
         URL newURL = new URL(driver.getCurrentUrl());
         Assertions.assertTrue(newURL.getQuery().contains("code="));
         Assertions.assertEquals(urlHandler.getRedirectUri(), newURL.getProtocol()+ "://" + newURL.getHost());
 
         driver.get(ConfProperties.getProperty("accountsPageUrl"));
-        accountsPage.isPageLoaded();
-        accountsPage.authoritiesClick(username);
-        authoritiesPage.revokeBtnClick(username);
-        revokePage.isPageLoaded();
-        revokePage.revokeBtnClick();
+        accountsPage
+                .isPageLoaded()
+                .authoritiesClick(username);
+        authoritiesPage
+                .revokeBtnClick(username);
+        revokePage
+                .isPageLoaded()
+                .revokeBtnClick();
         Assertions.assertTrue(revokePage.isSuccessMessagePresent());
 
     }
@@ -98,30 +100,30 @@ public class oAuthAndRevokeCase {
         accountsPage.isPageLoaded();
 
         String oauthUrl = urlHandler.getOAuthUrl();
-        driver.get(oauthUrl);;
-
-        oAuthPage.isPageLoaded();
-        oAuthPage.headerEmailCheck(username);
-        oAuthPage.authorizeBtnClick();
-
-        loginPage.isPageLoaded();
-        loginPage.chooseAccountFromSelect(username);
-
+        oAuthPage
+                .navigateToPage(oauthUrl)
+                .isPageLoaded()
+                .headerEmailCheck(username)
+                .authorizeBtnClick();
+        loginPage
+                .isPageLoaded()
+                .chooseAccountFromSelect(username);
         WebElement googleInput = driver.findElement(By.xpath("//div//input[@class='gLFyf gsfi']"));
         googleInput.isDisplayed();
 
         URL newURL = new URL(driver.getCurrentUrl());
         Assertions.assertTrue(newURL.getQuery().contains("code="));
         Assertions.assertEquals(urlHandler.getRedirectUri(), newURL.getProtocol()+ "://" + newURL.getHost());
-
-        driver.get(ConfProperties.getProperty("accountsPageUrl"));
-        accountsPage.isPageLoaded();
-        accountsPage.authoritiesClick(username);
-        authoritiesPage.revokeBtnClick(username);
-        revokePage.isPageLoaded();
-        revokePage.revokeBtnClick();
+        accountsPage
+                .navigateToPage()
+                .isPageLoaded()
+                .authoritiesClick(username);
+        authoritiesPage
+                .revokeBtnClick(username);
+        revokePage
+                .isPageLoaded()
+                .revokeBtnClick();
         Assertions.assertTrue(revokePage.isSuccessMessagePresent());
-
     }
 
     @AfterEach

@@ -1,13 +1,11 @@
 package selenium.pages;
 
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import selenium.ConfProperties;
 
 public class OAuthPage {
     private WebDriver driver;
@@ -21,8 +19,8 @@ public class OAuthPage {
         return new OAuthPage(driver);
     }
 
-    public OAuthPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("oauth2Url"));
+    public OAuthPage navigateToPage(String url) {
+        driver.get(url);
         return this;
     }
 

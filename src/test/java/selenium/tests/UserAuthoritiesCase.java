@@ -50,18 +50,17 @@ public class UserAuthoritiesCase {
     public void userAuthoritiesPageNavigate() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.importAccount(username, privateKey, false);
-
-        accountsPage.isPageLoaded();
-        accountsPage.authoritiesClick(username);
-
-        authoritiesPage.isPageLoaded();
-        String curl = authoritiesPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("authoritiesPageUrl"), curl);
-        authoritiesPage.isCorrectUser(username);
-
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .authoritiesClick(username);
+        authoritiesPage
+                .isPageLoaded()
+                .isCorrectUser(username);
+        Assertions.assertEquals(ConfProperties.getProperty("authoritiesPageUrl"), authoritiesPage.getPageUrl());
     }
 
     @Test
@@ -69,16 +68,16 @@ public class UserAuthoritiesCase {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
         String userLevel = "owner";
-
-        getStartedPage.getStartedBtnClick();
-        importPage.importAccount(username, privateKey, false);
-
-        accountsPage.isPageLoaded();
-        accountsPage.authoritiesClick(username);
-
-        authoritiesPage.isPageLoaded();
-        authoritiesPage.keysCheck(userLevel);
-
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .authoritiesClick(username);
+        authoritiesPage
+                .isPageLoaded()
+                .keysCheck(userLevel);
     }
 
     @AfterEach

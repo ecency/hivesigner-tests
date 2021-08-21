@@ -44,27 +44,27 @@ public class AccountLoginCase {
         loginPage = new LoginPage(driver);
         localStorageHandler = new LocalStorageHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
-
     }
 
     @Test
     public void noPasswordRequestForDecryptedAccount() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, false);
-        accountsPage.isPageLoaded();
-        accountsPage.returnToGetStartedPage();
-        getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
-
-        String curl = loginPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), curl);
-        loginPage.checkDropdownWithAccount(username);
-        Assertions.assertEquals(false, loginPage.isPasswordFieldPresent());
-
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .returnToGetStartedPage();
+        getStartedPage
+                .getStartedBtnClick();
+        loginPage
+                .isPageLoaded()
+                .checkDropdownWithAccount(username);
+        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), loginPage.getPageUrl());
+        Assertions.assertFalse(loginPage.isPasswordFieldPresent());
     }
 
     @Test
@@ -72,41 +72,44 @@ public class AccountLoginCase {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
         String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, true);
-        importPage.setLocalPassword(localPassword);
-        accountsPage.isPageLoaded();
-        accountsPage.returnToGetStartedPage();
-        getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
-
-        String curl = loginPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), curl);
-        loginPage.checkDropdownWithAccount(username);
-        Assertions.assertEquals(true, loginPage.isPasswordFieldPresent());
-
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .returnToGetStartedPage();
+        getStartedPage
+                .getStartedBtnClick();
+        loginPage
+                .isPageLoaded()
+                .checkDropdownWithAccount(username);
+        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), loginPage.getPageUrl());
+        Assertions.assertTrue(loginPage.isPasswordFieldPresent());
     }
 
     @Test
     public void addAnotherAccountBtnLeadsToImportPage() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, false);
-        accountsPage.isPageLoaded();
-        accountsPage.returnToGetStartedPage();
-        getStartedPage.getStartedBtnClick();
-        loginPage.isPageLoaded();
-        loginPage.addAccountClick();
-
-        String curl = importPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), curl);
-        Assertions.assertEquals(true, importPage.isUserNameFieldPresent());
-        Assertions.assertEquals(true, importPage.isPrivateKeyFieldPresent());
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .returnToGetStartedPage();
+        getStartedPage
+                .getStartedBtnClick();
+        loginPage
+                .isPageLoaded()
+                .addAccountClick();
+        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), importPage.getPageUrl());
+        Assertions.assertTrue(importPage.isUserNameFieldPresent());
+        Assertions.assertTrue(importPage.isPrivateKeyFieldPresent());
     }
 
     @Test
@@ -116,28 +119,31 @@ public class AccountLoginCase {
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, false);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
 
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username0, privateKey0, false);
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, true)
+                .userSamePassword(false, localPassword);
+        accountsPage
+                .isPageLoaded()
+                .returnToGetStartedPage();
+        getStartedPage
+                .getStartedBtnClick();
+        loginPage
+                .isPageLoaded();
 
-        importPage.importAccount(username1, privateKey1, true);
-        importPage.userSamePassword(false, localPassword);
-        accountsPage.isPageLoaded();
-        accountsPage.returnToGetStartedPage();
-        getStartedPage.getStartedBtnClick();
-
-        loginPage.isPageLoaded();
-        String curl = loginPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), curl);
-
+        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), loginPage.getPageUrl());
         loginPage.checkDropdownWithAccount(username0);
-        Assertions.assertEquals(false, loginPage.isPasswordFieldPresent());
+        Assertions.assertFalse(loginPage.isPasswordFieldPresent());
         loginPage.checkDropdownWithAccount(username1);
-        Assertions.assertEquals(true, loginPage.isPasswordFieldPresent());
-
+        Assertions.assertTrue(loginPage.isPasswordFieldPresent());
     }
 
     @AfterEach

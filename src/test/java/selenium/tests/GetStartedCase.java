@@ -48,44 +48,48 @@ public class GetStartedCase {
 
     @Test
     public void getStartedRedirectToImportPage(){
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        String curl = importPage.getPageUrl();
-        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), curl);
-
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded();
+        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), importPage.getPageUrl());
     }
 
     @Test
     public void getStartedRedirectToLoginPage() {
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, false);
-        accountsPage.isPageLoaded();
-        accountsPage.returnToGetStartedPage();
-        getStartedPage.getStartedBtnClick();
-        loginPage.checkDropdownWithAccount(username);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded();
+        importPage
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .returnToGetStartedPage();
+        getStartedPage
+                .getStartedBtnClick();
+        loginPage
+                .checkDropdownWithAccount(username);
     }
 
     @Test
     public void gotoGetStartedPageAfterAccRemoved(){
         String username = ConfProperties.getProperty("userName");
         String privateKey = ConfProperties.getProperty("privateKey");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username, privateKey, false);
-        accountsPage.isPageLoaded();
-        accountsPage.removeAccountClick(username);
-        getStartedPage.isPageLoaded();
-
-        String curl = getStartedPage.getPageUrl();
-        Assertions.assertEquals(curl, ConfProperties.getProperty("getStartedPageUrl"));
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .removeAccountClick(username);
+        getStartedPage
+                .isPageLoaded();
+        Assertions.assertEquals(ConfProperties.getProperty("getStartedPageUrl"), getStartedPage.getPageUrl());
     }
-
 
     @AfterEach
     public void tearDown() {

@@ -50,17 +50,19 @@ public class AccountSwitchCase {
         String privateKey0 = ConfProperties.getProperty("privateKey");
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-
-        importPage.importAccount(username0, privateKey0, false);
-
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-        importPage.importAccount(username1, privateKey1, false);
-        accountsPage.chooseAccount(username0);
-        accountsPage.isAccountChosen(username0);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, false);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, false);
+        accountsPage
+                .chooseAccount(username0)
+                .isAccountChosen(username0);
     }
 
     @Test
@@ -70,20 +72,21 @@ public class AccountSwitchCase {
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-
-        importPage.importAccount(username0, privateKey0, true);
-        importPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-
-        importPage.importAccount(username1, privateKey1, false);
-        accountsPage.chooseAccount(username0);
-        accountsPage.inputConfirmLocalPassword(localPassword);
-        accountsPage.isAccountChosen(username0);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, false);
+        accountsPage
+                .chooseAccount(username0)
+                .inputConfirmLocalPassword(localPassword)
+                .isAccountChosen(username0);
     }
 
     @Test
@@ -93,18 +96,21 @@ public class AccountSwitchCase {
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username0, privateKey0, false);
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-        importPage.importAccount(username1, privateKey1, true);
-        importPage.setLocalPassword(localPassword);
-
-        accountsPage.isPageLoaded();
-        accountsPage.chooseAccountFromDropDownList(username0, false,null);
-        accountsPage.isAccountChosen(username0);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, false);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .chooseAccountFromDropDownList(username0, false,null)
+                .isAccountChosen(username0);
     }
 
     @Test
@@ -114,18 +120,21 @@ public class AccountSwitchCase {
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username0, privateKey0, true);
-        importPage.setLocalPassword(localPassword);
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-        importPage.importAccount(username1, privateKey1, false);
-
-        accountsPage.isPageLoaded();
-        accountsPage.chooseAccountFromDropDownList(username0,true, localPassword);
-        accountsPage.isAccountChosen(username0);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, false);
+        accountsPage
+                .isPageLoaded()
+                .chooseAccountFromDropDownList(username0,true, localPassword)
+                .isAccountChosen(username0);
     }
 
     @Test
@@ -134,21 +143,27 @@ public class AccountSwitchCase {
         String privateKey0 = ConfProperties.getProperty("privateKey");
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username0, privateKey0, false);
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-        importPage.importAccount(username1, privateKey1, false);
-
-        accountsPage.isPageLoaded();
-        accountsPage.isAccountChosen(username1);
-        accountsPage.removeAccountClick(username1);
-        getStartedPage.isPageLoaded();
-        navigation.accountsClick();
-        accountsPage.chooseAccount(username0);
-        accountsPage.isAccountChosen(username0);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, false);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, false);
+        accountsPage
+                .isPageLoaded()
+                .isAccountChosen(username1)
+                .removeAccountClick(username1);
+        getStartedPage
+                .isPageLoaded();
+        navigation
+                .accountsClick();
+        accountsPage
+                .chooseAccount(username0)
+                .isAccountChosen(username0);
     }
 
     @Test
@@ -158,23 +173,29 @@ public class AccountSwitchCase {
         String username1 = ConfProperties.getProperty("userNameAlt1");
         String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
         String localPassword = ConfProperties.getProperty("localPassword");
-
-        getStartedPage.getStartedBtnClick();
-        importPage.isPageLoaded();
-        importPage.importAccount(username0, privateKey0, true);
-        importPage.setLocalPassword(localPassword);
-        accountsPage.isPageLoaded();
-        accountsPage.addAccountClick();
-        importPage.importAccount(username1, privateKey1, false);
-
-        accountsPage.isPageLoaded();
-        accountsPage.isAccountChosen(username1);
-        accountsPage.removeAccountClick(username1);
-        getStartedPage.isPageLoaded();
-        navigation.accountsClick();
-        accountsPage.chooseAccount(username0);
-        accountsPage.inputConfirmLocalPassword(localPassword);
-        accountsPage.isAccountChosen(username0);
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, true)
+                .setLocalPassword(localPassword);
+        accountsPage
+                .isPageLoaded()
+                .addAccountClick();
+        importPage
+                .importAccount(username1, privateKey1, false);
+        accountsPage
+                .isPageLoaded()
+                .isAccountChosen(username1)
+                .removeAccountClick(username1);
+        getStartedPage
+                .isPageLoaded();
+        navigation
+                .accountsClick();
+        accountsPage
+                .chooseAccount(username0)
+                .inputConfirmLocalPassword(localPassword)
+                .isAccountChosen(username0);
     }
 
     @AfterEach
