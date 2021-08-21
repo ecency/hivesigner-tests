@@ -16,7 +16,6 @@ public class OAuthPage {
         this.driver = driver;
     }
 
-
     @FindBy(xpath = "//div//button[contains(text(), 'Authorize')]")
     private WebElement authorizeBtn;
 
@@ -36,7 +35,6 @@ public class OAuthPage {
 
     public void headerEmailCheck(String username) {
         Assertions.assertEquals(headerEmail.getText(), username);
-
     }
 
     public void isPageLoaded() {

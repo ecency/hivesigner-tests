@@ -25,7 +25,6 @@ public class RevokePage {
 
     public void revokeBtnClick(){
         revokeBtn.click();
-
     }
 
     public void isPageLoaded() {
@@ -44,5 +43,4 @@ public class RevokePage {
         String url = driver.getCurrentUrl();
         return url;
     }
-
 }

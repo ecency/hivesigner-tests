@@ -69,7 +69,6 @@ public class AccountsPage {
     public void isAccountChosen(String username) {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']//..//*[local-name()='svg']", username)));
         Assertions.assertEquals(true, confirmIcon.isDisplayed());
-
     }
 
     public void returnToGetStartedPage() {

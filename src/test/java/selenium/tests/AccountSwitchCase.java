@@ -9,9 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
 import selenium.handlers.LocalStorageHandler;
 import selenium.handlers.ScreenshotsHandler;
-import selenium.pages.AccountsPage;
-import selenium.pages.GetStartedPage;
-import selenium.pages.ImportPage;
+import selenium.pages.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +18,8 @@ public class AccountSwitchCase {
     public static GetStartedPage getStartedPage;
     public static ImportPage importPage;
     public static AccountsPage accountsPage;
+    public static LoginPage loginPage;
+    public static NavigationBottomLine navigation;
     public static ScreenshotsHandler screenShotMaker;
     public static LocalStorageHandler localStorageHandler;
 
@@ -38,6 +38,8 @@ public class AccountSwitchCase {
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
+        loginPage = new LoginPage(driver);
+        navigation = new NavigationBottomLine(driver);
         localStorageHandler = new LocalStorageHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
     }
@@ -123,6 +125,55 @@ public class AccountSwitchCase {
 
         accountsPage.isPageLoaded();
         accountsPage.chooseAccountFromDropDownList(username0,true, localPassword);
+        accountsPage.isAccountChosen(username0);
+    }
+
+    @Test
+    public void switchToDecryptedAccountAfterCurrentAccRemoved(){
+        String username0 = ConfProperties.getProperty("userName");
+        String privateKey0 = ConfProperties.getProperty("privateKey");
+        String username1 = ConfProperties.getProperty("userNameAlt1");
+        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+
+        getStartedPage.getStartedBtnClick();
+        importPage.isPageLoaded();
+        importPage.importAccount(username0, privateKey0, false);
+        accountsPage.isPageLoaded();
+        accountsPage.addAccountClick();
+        importPage.importAccount(username1, privateKey1, false);
+
+        accountsPage.isPageLoaded();
+        accountsPage.isAccountChosen(username1);
+        accountsPage.removeAccountClick(username1);
+        getStartedPage.isPageLoaded();
+        navigation.accountsClick();
+        accountsPage.chooseAccount(username0);
+        accountsPage.isAccountChosen(username0);
+    }
+
+    @Test
+    public void switchToEncryptedAccountAfterCurrentAccRemoved(){
+        String username0 = ConfProperties.getProperty("userName");
+        String privateKey0 = ConfProperties.getProperty("privateKey");
+        String username1 = ConfProperties.getProperty("userNameAlt1");
+        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+        String localPassword = ConfProperties.getProperty("localPassword");
+
+        getStartedPage.getStartedBtnClick();
+        importPage.isPageLoaded();
+        importPage.importAccount(username0, privateKey0, true);
+        importPage.setLocalPassword(localPassword);
+        accountsPage.isPageLoaded();
+        accountsPage.addAccountClick();
+        importPage.importAccount(username1, privateKey1, false);
+
+        accountsPage.isPageLoaded();
+        accountsPage.isAccountChosen(username1);
+        accountsPage.removeAccountClick(username1);
+        getStartedPage.isPageLoaded();
+        navigation.accountsClick();
+        accountsPage.chooseAccount(username0);
+        accountsPage.inputConfirmLocalPassword(localPassword);
         accountsPage.isAccountChosen(username0);
     }
 

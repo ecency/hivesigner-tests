@@ -65,7 +65,6 @@ public class ImportPage {
         if (status == false) {
             encryptYourLoginCheckBox.click();
         }
-
     }
 
     public void inputHivesignerPassword(String password) {
@@ -85,7 +84,6 @@ public class ImportPage {
             inputHivesignerPasswordConfirm(password);
         }
         clickContinueButton();
-
     }
 
     public void userPasswordFromAccountSelector(String account, String password) {
@@ -134,5 +132,4 @@ public class ImportPage {
             return false;
         }
     }
-
 }

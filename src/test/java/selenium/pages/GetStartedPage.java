@@ -28,6 +28,4 @@ public class GetStartedPage {
     public void isPageLoaded() {
         getStartedBtn.isDisplayed();
     }
-
-
 }
