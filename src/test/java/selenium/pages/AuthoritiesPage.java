@@ -28,16 +28,16 @@ public class AuthoritiesPage {
     @FindBy(xpath = "//div[@class='text-xs tracking-wider uppercase text-gray']")
     private WebElement usernameTitle;
 
-    @FindBy(xpath = "//div[normalize-space()='owner']")
+    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"owner\"]")
     private WebElement ownerKey;
 
-    @FindBy(xpath = "//div[normalize-space()='active']")
+    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"active\"]")
     private WebElement activeKey;
 
-    @FindBy(xpath = "//div[normalize-space()='posting']")
+    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"posting\"]")
     private WebElement postingKey;
 
-    @FindBy(xpath = "//div[normalize-space()='memo']")
+    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"memo\"]")
     private WebElement memoKey;
 
 

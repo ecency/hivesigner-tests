@@ -55,6 +55,9 @@ public class ImportPage {
     @FindBy(xpath = "//span[@class='text-lg']/..")
     private WebElement accountPasswordSelector;
 
+    @FindBy(xpath = "//div//form//div[normalize-space()=\"You need to use master or at least posting key to login.\"]")
+    private WebElement needHigherKeyAlert;
+
     public ImportPage inputUserName(String login) {
         this.userNameInput.sendKeys(login);
         return this;
@@ -149,6 +152,14 @@ public class ImportPage {
     public boolean isPrivateKeyFieldPresent() {
         try {
             return this.privateKeyInput.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isHigherKeyAlertIsPresent() {
+        try {
+            return this.needHigherKeyAlert.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
