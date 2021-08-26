@@ -1,14 +1,12 @@
 package selenium.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogEntries;
 import selenium.ConfProperties;
-import selenium.handlers.LocalStorageHandler;
+import selenium.handlers.JsCodeHandler;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
@@ -24,7 +22,7 @@ public class AccountLoginCase {
     public static AccountsPage accountsPage;
     public static LoginPage loginPage;
     public static ScreenshotsHandler screenShotMaker;
-    public static LocalStorageHandler localStorageHandler;
+    public static JsCodeHandler jsCodeHandler;
 
     @BeforeEach
     public void setup() {
@@ -42,7 +40,7 @@ public class AccountLoginCase {
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
         loginPage = new LoginPage(driver);
-        localStorageHandler = new LocalStorageHandler(driver);
+        jsCodeHandler = new JsCodeHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
     }
 
@@ -146,9 +144,39 @@ public class AccountLoginCase {
         Assertions.assertTrue(loginPage.isPasswordFieldPresent());
     }
 
+    @Disabled
+    @Test
+    public void userEncryptedSessionLives24Hours() {
+        String username0 = ConfProperties.getProperty("userName");
+        String privateKey0 = ConfProperties.getProperty("privateKey");
+        LogEntries outputLogs;
+
+        String localPassword = ConfProperties.getProperty("localPassword");
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username0, privateKey0, true)
+                .userSamePassword(false, localPassword);
+//        jsCodeHandler.getTimeZone();
+//        accountsPage
+//                .returnToGetStartedPage();
+//        getStartedPage
+//                .getStartedBtnClick();
+//        loginPage
+//                .isPageLoaded();
+//
+//        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), loginPage.getPageUrl());
+//        loginPage.checkDropdownWithAccount(username0);
+//        Assertions.assertFalse(loginPage.isPasswordFieldPresent());
+//        loginPage.checkDropdownWithAccount(username1);
+//        Assertions.assertTrue(loginPage.isPasswordFieldPresent());
+    }
+
+
     @AfterEach
     public void tearDown() {
-        localStorageHandler.clearLocalStorage();
+        jsCodeHandler.clearLocalStorage();
         if (driver != null) {
             driver.quit();
         }

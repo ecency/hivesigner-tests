@@ -7,12 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
-import selenium.handlers.LocalStorageHandler;
+import selenium.handlers.JsCodeHandler;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.handlers.URLhandler;
 import selenium.pages.*;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +28,7 @@ public class oAuthAndRevokeCase {
     public static AuthoritiesPage authoritiesPage;
     public static RevokePage revokePage;
     public static ScreenshotsHandler screenShotMaker;
-    public static LocalStorageHandler localStorageHandler;
+    public static JsCodeHandler jsCodeHandler;
     public static URLhandler urlHandler;
 
 
@@ -51,7 +50,7 @@ public class oAuthAndRevokeCase {
         oAuthPage = new OAuthPage(driver);
         revokePage = new RevokePage(driver);
         authoritiesPage = new AuthoritiesPage(driver);
-        localStorageHandler = new LocalStorageHandler(driver);
+        jsCodeHandler = new JsCodeHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
         urlHandler = new URLhandler("https://www.google.com", "code", ConfProperties.getProperty("userName"));
     }
@@ -128,7 +127,7 @@ public class oAuthAndRevokeCase {
 
     @AfterEach
     public void tearDown() {
-        localStorageHandler.clearLocalStorage();
+        jsCodeHandler.clearLocalStorage();
         if (driver != null) {
             driver.quit();
         }

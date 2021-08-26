@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import selenium.ConfProperties;
-import selenium.handlers.LocalStorageHandler;
+import selenium.handlers.JsCodeHandler;
 import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
@@ -24,7 +24,7 @@ public class GetStartedCase {
     public static AccountsPage accountsPage;
     public static LoginPage loginPage;
     public static ScreenshotsHandler screenShotMaker;
-    public static LocalStorageHandler localStorageHandler;
+    public static JsCodeHandler jsCodeHandler;
 
     @BeforeEach
     public void setup() {
@@ -42,7 +42,7 @@ public class GetStartedCase {
         importPage = new ImportPage(driver);
         accountsPage = new AccountsPage(driver);
         loginPage = new LoginPage(driver);
-        localStorageHandler = new LocalStorageHandler(driver);
+        jsCodeHandler = new JsCodeHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
     }
 
@@ -93,7 +93,7 @@ public class GetStartedCase {
 
     @AfterEach
     public void tearDown() {
-        localStorageHandler.clearLocalStorage();
+        jsCodeHandler.clearLocalStorage();
         if (driver != null) {
             driver.quit();
         }
