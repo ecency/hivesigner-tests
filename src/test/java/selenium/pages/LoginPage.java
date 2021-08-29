@@ -60,6 +60,7 @@ public class LoginPage {
 
     public LoginPage chooseAccountFromSelect(String username) {
         this.accountDropdown.click();
+        System.out.println("Choose account from dropdown list...");
         WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class='select-option cursor-pointer py-4 px-5 hover:bg-primary-100 bg-gray-200']//div[@class='flex items-center justify-start'][normalize-space()='%s']", username)));
         accountSelect.click();
         clickContinueButton();
@@ -83,7 +84,7 @@ public class LoginPage {
     }
 
     public String getPageUrl() {
-        System.out.println("Current page url copied...");
+        System.out.println("Check that current page url is correct...");
         return driver.getCurrentUrl();
     }
 
@@ -95,8 +96,9 @@ public class LoginPage {
 
     public boolean isPasswordFieldPresent() {
         try {
+            hivesignerPasswordInput.isDisplayed();
             System.out.println("Password input field is displayed...");
-            return this.hivesignerPasswordInput.isDisplayed();
+            return true;
         } catch (NoSuchElementException e) {
             System.out.println("Password input field is not displayed...");
             return false;

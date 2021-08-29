@@ -33,7 +33,7 @@ public class GetStartedPage {
     }
 
     public String getPageUrl() {
-        System.out.println("Current page url copied...");
+        System.out.println("Check that current page url is correct...");
         return driver.getCurrentUrl();
     }
 

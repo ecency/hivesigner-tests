@@ -60,7 +60,7 @@ public class ImportPage {
 
     public ImportPage inputUserName(String username) {
         this.userNameInput.sendKeys(username);
-        System.out.println("Input user name...");
+        System.out.println("Input username...");
         return this;
     }
 
@@ -86,8 +86,9 @@ public class ImportPage {
         if (status == false) {
             System.out.println("'Encrypt your login' checkbox removed...");
             this.encryptYourLoginCheckBox.click();
+        } else {
+            System.out.println("'Encrypt your login' checkbox checked...");
         }
-        System.out.println("'Encrypt your login' checkbox checked...");
         return this;
     }
 
@@ -99,7 +100,7 @@ public class ImportPage {
 
     public ImportPage inputHivesignerPasswordConfirm(String password) {
         this.hivesignerPasswordConfirmInput.sendKeys(password);
-        System.out.println("Confirm local password...");
+        System.out.println("Input local confirm password...");
         return this;
     }
 
@@ -151,7 +152,7 @@ public class ImportPage {
     }
 
     public String getPageUrl() {
-        System.out.println("Current page url copied...");
+        System.out.println("Check that current page url is correct...");
         return driver.getCurrentUrl();
     }
 

@@ -49,7 +49,7 @@ public class AuthoritiesPage {
 
     public AuthoritiesPage isCorrectUser(String username) {
         WebElement pageUserName = driver.findElement(By.xpath(String.format("//div[@class='text-xs tracking-wider uppercase text-gray']//..//div[contains(string(), '%s')]", username)));
-        System.out.println("Check that page is for user:..." + username);
+        System.out.println("Check that page is for correct user...");
         Assertions.assertTrue(pageUserName.isDisplayed());
         System.out.println("Checked...");
         return this;
@@ -58,12 +58,12 @@ public class AuthoritiesPage {
     public AuthoritiesPage revokeBtnClick(String username) {
         WebElement revokeBtn = driver.findElement(By.xpath(String.format("//div//div[@class='auths-table']//a[normalize-space()='%s']/../following::div[1]", username)));
         revokeBtn.click();
-        System.out.println("Revoke access for user: " + username);
+        System.out.println("Revoke access for user...");
         return this;
     }
 
     public String getPageUrl() {
-        System.out.println("Current page url copied...");
+        System.out.println("Check that current page url is correct...");
         return driver.getCurrentUrl();
     }
 

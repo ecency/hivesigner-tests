@@ -44,7 +44,7 @@ public class OAuthPage {
     }
 
     public OAuthPage headerEmailCheck(String username) {
-        System.out.println("Check email for user: " + username + " is on the page...");
+        System.out.println("Check email for current user is on the page...");
         Assertions.assertEquals(this.headerEmail.getText(), username);
         System.out.println("Checked...");
         return this;
@@ -57,7 +57,7 @@ public class OAuthPage {
     }
 
     public String getPageUrl() {
-        System.out.println("Current page url copied...");
+        System.out.println("Check that current page url is correct...");
         return driver.getCurrentUrl();
     }
 

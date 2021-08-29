@@ -125,7 +125,6 @@ public class AccountLoginCase {
         accountsPage
                 .isPageLoaded()
                 .addAccountClick();
-
         importPage
                 .importAccount(username1, privateKey1, true)
                 .userSamePassword(false, localPassword);
@@ -144,7 +143,7 @@ public class AccountLoginCase {
         Assertions.assertTrue(loginPage.isPasswordFieldPresent());
     }
 
-    @Disabled
+    @Disabled("ToDo: Complete the test with JavaScript language usage or delete it")
     @Test
     public void userEncryptedSessionLives24Hours() {
         String username0 = ConfProperties.getProperty("userName");
@@ -172,7 +171,6 @@ public class AccountLoginCase {
 //        loginPage.checkDropdownWithAccount(username1);
 //        Assertions.assertTrue(loginPage.isPasswordFieldPresent());
     }
-
 
     @AfterEach
     public void tearDown() {

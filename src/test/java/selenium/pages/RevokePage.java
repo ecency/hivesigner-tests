@@ -40,6 +40,7 @@ public class RevokePage {
 
     public RevokePage isPageLoaded() {
         this.revokeImg.isDisplayed();
+        System.out.println("Revoke page is loaded...");
         return this;
     }
 
@@ -52,6 +53,7 @@ public class RevokePage {
     }
 
     public String getPageUrl() {
+        System.out.println("Check that current page url is correct...");
         return driver.getCurrentUrl();
     }
 }

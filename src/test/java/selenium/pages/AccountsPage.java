@@ -66,7 +66,7 @@ public class AccountsPage {
     }
 
     public String getPageUrl() {
-        System.out.println("Current page url copied...");
+        System.out.println("Check that current page url is correct...");
         return driver.getCurrentUrl();
     }
 
@@ -79,13 +79,13 @@ public class AccountsPage {
     public AccountsPage chooseAccount(String username) {
         WebElement account = driver.findElement(By.xpath(String.format("//span[normalize-space()='%s']", username)));
         account.click();
-        System.out.println("Chose account with username: " + username + " ...");
+        System.out.println("Chose account...");
         return this;
     }
 
     public AccountsPage isAccountChosen(String username) {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']//..//*[local-name()='svg']", username)));
-        System.out.println("Check that account with username: " + username + " chosen...");
+        System.out.println("Check that account is chosen...");
         Assertions.assertTrue(confirmIcon.isDisplayed());
         System.out.println("Checked...");
         return this;
@@ -93,7 +93,7 @@ public class AccountsPage {
 
     public AccountsPage returnToGetStartedPage() {
         this.logoImg.click();
-        System.out.println("Return to started page...");
+        System.out.println("Return to 'Get started' page...");
         return this;
     }
 
@@ -111,7 +111,7 @@ public class AccountsPage {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']/..", username)));
         confirmIcon.click();
         this.authorities.click();
-        System.out.println("Go to " + username + " Authorities page...");
+        System.out.println("Go to account Authorities page...");
         return this;
     }
 
@@ -120,7 +120,7 @@ public class AccountsPage {
         confirmIcon.click();
         this.removeBtn.click();
         this.removeConfirmBtn.click();
-        System.out.println("Remove account with username: " + username + " from local storage...");
+        System.out.println("Remove account from local storage...");
         return this;
     }
 
@@ -146,13 +146,14 @@ public class AccountsPage {
         if (encrypted == false) {
             checkEncryptedOrNotIcon(username, false);
             account.click();
+            System.out.println("Decrypted account chosen from dropdown list...");
             this.accountDropdownListBottomClose.click();
         } else {
             checkEncryptedOrNotIcon(username, true);
             account.click();
             inputConfirmLocalPassword(password);
+            System.out.println("Encrypted account chosen from dropdown list...");
         }
-        System.out.println("Account with username: " + username + "chosen from dropdown list...");
         return this;
     }
 }
