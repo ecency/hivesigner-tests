@@ -156,12 +156,7 @@ public class AccountSwitchCase {
         accountsPage
                 .isPageLoaded()
                 .isAccountChosen(username1)
-                .removeAccountClick(username1);
-        getStartedPage
-                .isPageLoaded();
-        navigation
-                .accountsClick();
-        accountsPage
+                .removeAccountClick(username1)
                 .chooseAccount(username0)
                 .isAccountChosen(username0);
     }
@@ -187,12 +182,7 @@ public class AccountSwitchCase {
         accountsPage
                 .isPageLoaded()
                 .isAccountChosen(username1)
-                .removeAccountClick(username1);
-        getStartedPage
-                .isPageLoaded();
-        navigation
-                .accountsClick();
-        accountsPage
+                .removeAccountClick(username1)
                 .chooseAccount(username0)
                 .inputConfirmLocalPassword(localPassword)
                 .isAccountChosen(username0);

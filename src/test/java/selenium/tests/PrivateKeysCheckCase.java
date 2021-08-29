@@ -1,9 +1,6 @@
 package selenium.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -59,6 +56,7 @@ public class PrivateKeysCheckCase {
         Assertions.assertTrue(importPage.isHigherKeyAlertIsPresent());
     }
 
+    @Disabled("Wating for elements id added for keys")
     @Test
     public void postingPrivateKeyAcceptedImport() {
         String username = ConfProperties.getProperty("userName");
