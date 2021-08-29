@@ -41,17 +41,4 @@ public class JsCodeHandler {
         }
         return false;
     }
-
-    public void getTimeZone(){
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("console.log(new Date().toTimeString().slice(9));\n" +
-                "console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);\n" +
-                "console.log(new Date().getTimezoneOffset() / -60);");
-    }
-
-    public void changeTimeZone(){
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("console.log(");
-    }
-
 }

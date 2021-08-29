@@ -20,6 +20,7 @@ public class OAuthPage {
     }
 
     public OAuthPage navigateToPage(String url) {
+        System.out.println("Navigate to oAuth Page...");
         driver.get(url);
         return this;
     }
@@ -38,20 +39,25 @@ public class OAuthPage {
 
     public OAuthPage authorizeBtnClick() {
         this.authorizeBtn.click();
+        System.out.println("Click on 'Authorize' button...");
         return this;
     }
 
     public OAuthPage headerEmailCheck(String username) {
+        System.out.println("Check email for user: " + username + " is on the page...");
         Assertions.assertEquals(this.headerEmail.getText(), username);
+        System.out.println("Checked...");
         return this;
     }
 
     public OAuthPage isPageLoaded() {
         this.authorizeBtn.isDisplayed();
+        System.out.println("oAuth page is loaded...");
         return this;
     }
 
     public String getPageUrl() {
+        System.out.println("Current page url copied...");
         return driver.getCurrentUrl();
     }
 

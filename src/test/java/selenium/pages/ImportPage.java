@@ -58,48 +58,58 @@ public class ImportPage {
     @FindBy(xpath = "//div//form//div[normalize-space()=\"You need to use master or at least posting key to login.\"]")
     private WebElement needHigherKeyAlert;
 
-    public ImportPage inputUserName(String login) {
-        this.userNameInput.sendKeys(login);
+    public ImportPage inputUserName(String username) {
+        this.userNameInput.sendKeys(username);
+        System.out.println("Input user name...");
         return this;
     }
 
     public ImportPage inputPrivateKey(String privateKey) {
         this.privateKeyInput.sendKeys(privateKey);
+        System.out.println("Input private key...");
         return this;
     }
 
     public ImportPage clickLoginButton() {
         this.loginBtn.click();
+        System.out.println("Click on 'Login' button...");
         return this;
     }
 
     public ImportPage clickContinueButton() {
         this.continueBtn.click();
+        System.out.println("Click on 'Continue' button...");
         return this;
     }
 
     public ImportPage encryptLoginCheckBoxEnabled(Boolean status) {
         if (status == false) {
+            System.out.println("'Encrypt your login' checkbox removed...");
             this.encryptYourLoginCheckBox.click();
         }
+        System.out.println("'Encrypt your login' checkbox checked...");
         return this;
     }
 
     public ImportPage inputHivesignerPassword(String password) {
         this.hivesignerPasswordInput.sendKeys(password);
+        System.out.println("Input local password...");
         return this;
     }
 
     public ImportPage inputHivesignerPasswordConfirm(String password) {
         this.hivesignerPasswordConfirmInput.sendKeys(password);
+        System.out.println("Confirm local password...");
         return this;
     }
 
     public ImportPage userSamePassword(Boolean status, String password) {
         if (status == true) {
+            System.out.println("New User use the same local password...");
             this.userSamePasswordCheckbox.click();
             inputHivesignerPasswordConfirm(password);
         } else {
+            System.out.println("New User use the new local password...");
             inputHivesignerPassword(password);
             inputHivesignerPasswordConfirm(password);
         }
@@ -108,9 +118,11 @@ public class ImportPage {
     }
 
     public ImportPage userPasswordFromAccountSelector(String account, String password) {
+        System.out.println("Click on checkbox 'Use the same password'...");
         this.userSamePasswordCheckbox.click();
         this.accountPasswordSelector.click();
         WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class=\"dropdown relative\"]//a[normalize-space()='%s']", account)));
+        System.out.println("Choose password from account selector...");
         accountSelect.click();
         inputHivesignerPasswordConfirm(password);
         clickContinueButton();
@@ -134,33 +146,44 @@ public class ImportPage {
 
     public ImportPage isPageLoaded() {
         this.dontHaveAccount.isDisplayed();
+        System.out.println("Import page is loaded...");
         return this;
     }
 
     public String getPageUrl() {
+        System.out.println("Current page url copied...");
         return driver.getCurrentUrl();
     }
 
     public boolean isUserNameFieldPresent() {
         try {
-            return this.userNameInput.isDisplayed();
+            userNameInput.isDisplayed();
+            System.out.println("Username input field is displayed...");
+            return true;
         } catch (NoSuchElementException e) {
+            System.out.println("Username input field is not displayed...");
             return false;
         }
     }
 
     public boolean isPrivateKeyFieldPresent() {
         try {
-            return this.privateKeyInput.isDisplayed();
+            privateKeyInput.isDisplayed();
+            System.out.println("Private key input field is displayed...");
+            return true;
         } catch (NoSuchElementException e) {
+            System.out.println("Private key input field is not displayed...");
             return false;
         }
     }
 
     public boolean isHigherKeyAlertIsPresent() {
         try {
-            return this.needHigherKeyAlert.isDisplayed();
+            needHigherKeyAlert.isDisplayed();
+            System.out.println("Higher key needed alert is displayed...");
+            return true;
         } catch (NoSuchElementException e) {
+            System.out.println("Higher key needed alert is not displayed...");
             return false;
         }
     }

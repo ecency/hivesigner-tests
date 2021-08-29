@@ -1,5 +1,6 @@
 package selenium.pages;
 
+import com.sun.source.util.SourcePositions;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -60,14 +61,17 @@ public class AccountsPage {
 
     public AccountsPage isPageLoaded() {
         accountsList.isDisplayed();
+        System.out.println("Account page is loaded...");
         return this;
     }
 
     public String getPageUrl() {
+        System.out.println("Current page url copied...");
         return driver.getCurrentUrl();
     }
 
     public AccountsPage addAccountClick() {
+        System.out.println("Click on 'Add another account' button...");
         this.addAnotherAccBtn.click();
         return this;
     }
@@ -75,24 +79,31 @@ public class AccountsPage {
     public AccountsPage chooseAccount(String username) {
         WebElement account = driver.findElement(By.xpath(String.format("//span[normalize-space()='%s']", username)));
         account.click();
+        System.out.println("Chose account with username: " + username + " ...");
         return this;
     }
 
     public AccountsPage isAccountChosen(String username) {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']//..//*[local-name()='svg']", username)));
+        System.out.println("Check that account with username: " + username + " chosen...");
         Assertions.assertTrue(confirmIcon.isDisplayed());
+        System.out.println("Checked...");
         return this;
     }
 
     public AccountsPage returnToGetStartedPage() {
         this.logoImg.click();
+        System.out.println("Return to started page...");
         return this;
     }
 
     public AccountsPage inputConfirmLocalPassword(String password) {
+        System.out.println("Check that confirm password is displayed...");
         Assertions.assertTrue(confirmPasswordPanel.isDisplayed());
+        System.out.println("Checked...");
         this.confirmLocalPassword.sendKeys(password);
         this.getConfirmLocalPasswordLogin.click();
+        System.out.println("Input local password confirm...");
         return this;
     }
 
@@ -100,6 +111,7 @@ public class AccountsPage {
         WebElement confirmIcon = driver.findElement(By.xpath(String.format("//div[@class='account-item flex flex-col items-center cursor-pointer']//span[normalize-space()='%s']/..", username)));
         confirmIcon.click();
         this.authorities.click();
+        System.out.println("Go to " + username + " Authorities page...");
         return this;
     }
 
@@ -108,6 +120,7 @@ public class AccountsPage {
         confirmIcon.click();
         this.removeBtn.click();
         this.removeConfirmBtn.click();
+        System.out.println("Remove account with username: " + username + " from local storage...");
         return this;
     }
 
@@ -115,16 +128,19 @@ public class AccountsPage {
         String title;
         if (encryptedStatus == true) {
             title = "Encrypted";
+            System.out.println("Check that encrypted account has encrypted icon...");
         } else {
             title = "Decrypted";
+            System.out.println("Check that decrypted account has no encrypted icon...");
         }
         this.accountDropdownListBottom.click();
         WebElement encryptedOrNotIcon = driver.findElement(By.xpath(String.format("//div/div[@class='hidden md:block']//div[normalize-space()='%s']/../../a[@title='%s']", username, title)));
         Assertions.assertTrue(encryptedOrNotIcon.isDisplayed());
+        System.out.println("Checked...");
         return this;
     }
 
-    public AccountsPage chooseAccountFromDropDownList(String username,boolean encrypted, String password) {
+    public AccountsPage chooseAccountFromDropDownList(String username, boolean encrypted, String password) {
         this.accountDropdownListBottom.click();
         WebElement account = driver.findElement(By.xpath(String.format("//div/div[@class='hidden md:block']//div[@class='overflow-y-auto']//div[normalize-space()='%s']", username)));
         if (encrypted == false) {
@@ -136,6 +152,7 @@ public class AccountsPage {
             account.click();
             inputConfirmLocalPassword(password);
         }
+        System.out.println("Account with username: " + username + "chosen from dropdown list...");
         return this;
     }
 }

@@ -42,16 +42,19 @@ public class LoginPage {
 
     public LoginPage clickContinueButton() {
         this.continueBtn.click();
+        System.out.println("Click on 'Continue' button...");
         return this;
     }
 
     public LoginPage dropdownSelect() {
         this.accountDropdown.click();
+        System.out.println("Click on dropdown list...");
         return this;
     }
 
     public LoginPage addAccountClick() {
         this.addAnotherAccBtn.click();
+        System.out.println("Click on 'Add another account' button...");
         return this;
     }
 
@@ -63,32 +66,39 @@ public class LoginPage {
         return this;
     }
 
-    public LoginPage checkDropdownWithAccount(String account) {
+    public LoginPage checkDropdownWithAccount(String username) {
+        System.out.println("Check that account is in dropdown list...");
         this.accountDropdown.click();
-        WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class='select-options border border-black-500 rounded-md mt-4 absolute z-10 w-full bg-white overflow-x-hidden overflow-y-auto']//div[@class='flex items-center justify-start'][normalize-space()='%s']", account)));
+        WebElement accountSelect = driver.findElement(By.xpath(String.format("//div[@class='select-options border border-black-500 rounded-md mt-4 absolute z-10 w-full bg-white overflow-x-hidden overflow-y-auto']//div[@class='flex items-center justify-start'][normalize-space()='%s']", username)));
         accountSelect.isDisplayed();
+        System.out.println("Checked...");
         accountSelect.click();
         return this;
     }
 
     public LoginPage isPageLoaded() {
         this.dontHaveAccount.isDisplayed();
+        System.out.println("Login page is loaded...");
         return this;
     }
 
     public String getPageUrl() {
+        System.out.println("Current page url copied...");
         return driver.getCurrentUrl();
     }
 
     public LoginPage inputHivesignerPassword(String password) {
+        System.out.println("Input password...");
         this.hivesignerPasswordInput.sendKeys(password);
         return this;
     }
 
     public boolean isPasswordFieldPresent() {
         try {
+            System.out.println("Password input field is displayed...");
             return this.hivesignerPasswordInput.isDisplayed();
         } catch (NoSuchElementException e) {
+            System.out.println("Password input field is not displayed...");
             return false;
         }
     }

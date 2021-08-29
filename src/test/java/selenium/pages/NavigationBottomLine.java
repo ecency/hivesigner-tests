@@ -35,26 +35,31 @@ public class NavigationBottomLine {
 
     public NavigationBottomLine appsClick(){
         this.appsBottomLink.click();
+        System.out.println("Click on 'Apps' link on the page bottom...");
         return this;
     }
 
     public NavigationBottomLine accountsClick(){
         this.accountsBottomLink.click();
+        System.out.println("Click on 'Account' link on the page bottom...");
         return this;
     }
 
     public NavigationBottomLine signerClick(){
         this.signerBottomLink.click();
+        System.out.println("Click on 'Signer' link on the page bottom...");
         return this;
     }
 
     public NavigationBottomLine docsClick(){
         this.docsBottomLink.click();
+        System.out.println("Click on 'Docs' link on the page bottom...");
         return this;
     }
 
     public NavigationBottomLine aboutClick(){
         this.aboutBottomLink.click();
+        System.out.println("Click on 'About' link on the page bottom...");
         return this;
     }
 }

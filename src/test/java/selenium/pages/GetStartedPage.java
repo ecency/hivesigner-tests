@@ -28,15 +28,18 @@ public class GetStartedPage {
 
     public GetStartedPage getStartedBtnClick() {
         this.getStartedBtn.click();
+        System.out.println("Click on 'Get started' button...");
         return this;
     }
 
     public String getPageUrl() {
+        System.out.println("Current page url copied...");
         return driver.getCurrentUrl();
     }
 
     public GetStartedPage isPageLoaded() {
         this.getStartedBtn.isDisplayed();
+        System.out.println("Get started page is loaded...");
         return this;
     }
 }
