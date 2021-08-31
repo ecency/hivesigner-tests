@@ -63,23 +63,6 @@ public class UserAuthoritiesCase {
         Assertions.assertEquals(ConfProperties.getProperty("authoritiesPageUrl"), authoritiesPage.getPageUrl());
     }
 
-    @Test
-    public void userHasKeysForHisLevel() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
-        String userLevel = "owner";
-        getStartedPage
-                .getStartedBtnClick();
-        importPage
-                .importAccount(username, privateKey, false);
-        accountsPage
-                .isPageLoaded()
-                .authoritiesClick(username);
-        authoritiesPage
-                .isPageLoaded()
-                .keysCheck(userLevel);
-    }
-
     @AfterEach
     public void tearDown() {
         jsCodeHandler.clearLocalStorage();

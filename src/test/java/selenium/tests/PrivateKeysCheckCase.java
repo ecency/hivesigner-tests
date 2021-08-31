@@ -47,32 +47,62 @@ public class PrivateKeysCheckCase {
     @Test
     public void memoPrivateKeyNotAcceptedImport() {
         String username = ConfProperties.getProperty("userName");
-        String memoPrivateKey = ConfProperties.getProperty("memoPrivateKey");
+        String privateKey = ConfProperties.getProperty("memoPrivateKey");
         getStartedPage
                 .getStartedBtnClick();
         importPage
                 .isPageLoaded()
-                .importAccount(username, memoPrivateKey, false);
+                .importAccount(username, privateKey, false);
         Assertions.assertTrue(importPage.isHigherKeyAlertIsPresent());
     }
 
-    @Disabled("Wating for elements id added for keys")
     @Test
     public void postingPrivateKeyAcceptedImport() {
         String username = ConfProperties.getProperty("userName");
-        String postingPrivateKey = ConfProperties.getProperty("postingPrivateKey");
+        String privateKey = ConfProperties.getProperty("postingPrivateKey");
         getStartedPage
                 .getStartedBtnClick();
         importPage
                 .isPageLoaded()
-                .importAccount(username, postingPrivateKey, false);
+                .importAccount(username, privateKey, false);
         accountsPage
                 .isPageLoaded()
                 .authoritiesClick(username);
         authoritiesPage
-                .keysCheck("posting");
+                .keysCheck("posting", privateKey);
     }
 
+    @Test
+    public void activePrivateKeyAcceptedImport() {
+        String username = ConfProperties.getProperty("userName");
+        String privateKey = ConfProperties.getProperty("activePrivateKey");
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .authoritiesClick(username);
+        authoritiesPage
+                .keysCheck("active", privateKey);
+    }
+
+    @Test
+    public void ownerPrivateKeyAcceptedImport() {
+        String username = ConfProperties.getProperty("userName");
+        String privateKey = ConfProperties.getProperty("ownerPrivateKey");
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, privateKey, false);
+        accountsPage
+                .isPageLoaded()
+                .authoritiesClick(username);
+        authoritiesPage
+                .keysCheck("owner",privateKey);
+    }
 
     @AfterEach
     public void tearDown() {

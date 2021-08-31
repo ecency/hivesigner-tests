@@ -1,6 +1,7 @@
 package selenium.pages;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,18 +29,29 @@ public class AuthoritiesPage {
     @FindBy(xpath = "//div[@class='text-xs tracking-wider uppercase text-gray']")
     private WebElement usernameTitle;
 
-    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"owner\"]")
+    @FindBy(xpath = "//div[@data-e2e=\"owner-key\"]")
     private WebElement ownerKey;
 
-    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"active\"]")
+    @FindBy(xpath = "//div[@data-e2e=\"active-key\"]")
     private WebElement activeKey;
 
-    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"posting\"]")
+    @FindBy(xpath = "//div[@data-e2e=\"active-key\"]/following-sibling::div[@data-e2e=\"posting-key\"]")
     private WebElement postingKey;
 
-    @FindBy(xpath = "//div[@class=\"auths-table\"]//a[normalize-space()='Copy']/../../preceding-sibling::div[normalize-space()=\"memo\"]")
+    @FindBy(xpath = "//div[@data-e2e=\"memo-key\"]")
     private WebElement memoKey;
 
+    @FindBy(css = "[data-e2e=\"owner-reveal-or-import\"]")
+    private WebElement ownerKeyRevealButton;
+
+    @FindBy(css = "[data-e2e=\"active-reveal-or-import\"]")
+    private WebElement activeKeyRevealButton;
+
+    @FindBy(xpath = "//div[@data-e2e=\"active-key\"]/following-sibling::div[@data-e2e=\"posting-key\"]/following-sibling::div//a[@data-e2e=\"posting-reveal-or-import\"]")
+    private WebElement postingKeyRevealButton;
+
+    @FindBy(css = "[data-e2e=\"memo-reveal-or-import\"]")
+    private WebElement memoKeyRevealButton;
 
     public AuthoritiesPage isPageLoaded() {
         this.usernameTitle.isDisplayed();
@@ -67,23 +79,35 @@ public class AuthoritiesPage {
         return driver.getCurrentUrl();
     }
 
-    public AuthoritiesPage keysCheck(String userLevel) {
+    public AuthoritiesPage keysCheck(String userLevel, String key) {
         switch (userLevel) {
             case "owner":
+                System.out.println("Check access to Owner key...");
                 ownerKey.isDisplayed();
                 activeKey.isDisplayed();
                 postingKey.isDisplayed();
-                memoKey.isDisplayed();
+                ownerKeyRevealButton.isDisplayed();
+                Assertions.assertEquals(ownerKeyRevealButton.getText(), "Reveal private key");
+                System.out.println("Checked...");
                 break;
             case "active": {
+                System.out.println("Check access to Active key...");
+                ownerKey.isDisplayed();
                 activeKey.isDisplayed();
                 postingKey.isDisplayed();
-                memoKey.isDisplayed();
+                activeKeyRevealButton.isDisplayed();
+                Assertions.assertEquals(activeKeyRevealButton.getText(), "Reveal private key");
+                System.out.println("Checked...");
                 break;
             }
             case "posting": {
+                System.out.println("Check access to Posting key...");
+                ownerKey.isDisplayed();
+                activeKey.isDisplayed();
                 postingKey.isDisplayed();
-                memoKey.isDisplayed();
+                postingKeyRevealButton.isDisplayed();
+                Assertions.assertEquals(postingKeyRevealButton.getText(), "Reveal private key");
+                System.out.println("Checked...");
                 break;
             }
         }
