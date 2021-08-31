@@ -69,7 +69,7 @@ public class PrivateKeysCheckCase {
                 .isPageLoaded()
                 .authoritiesClick(username);
         authoritiesPage
-                .keysCheck("posting", privateKey);
+                .keysCheck("posting");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class PrivateKeysCheckCase {
                 .isPageLoaded()
                 .authoritiesClick(username);
         authoritiesPage
-                .keysCheck("active", privateKey);
+                .keysCheck("active");
     }
 
     @Test
@@ -101,7 +101,23 @@ public class PrivateKeysCheckCase {
                 .isPageLoaded()
                 .authoritiesClick(username);
         authoritiesPage
-                .keysCheck("owner",privateKey);
+                .keysCheck("owner");
+    }
+
+    @Test
+    public void masterPasswordAccessAllPrivateKeys() {
+        String username = ConfProperties.getProperty("userName");
+        String masterPassword = ConfProperties.getProperty("privateKey");
+        getStartedPage
+                .getStartedBtnClick();
+        importPage
+                .isPageLoaded()
+                .importAccount(username, masterPassword, false);
+        accountsPage
+                .isPageLoaded()
+                .authoritiesClick(username);
+        authoritiesPage
+                .keysCheck("masterPassword");
     }
 
     @AfterEach

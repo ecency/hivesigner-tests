@@ -79,7 +79,7 @@ public class AuthoritiesPage {
         return driver.getCurrentUrl();
     }
 
-    public AuthoritiesPage keysCheck(String userLevel, String key) {
+    public AuthoritiesPage keysCheck(String userLevel) {
         switch (userLevel) {
             case "owner":
                 System.out.println("Check access to Owner key...");
@@ -107,6 +107,23 @@ public class AuthoritiesPage {
                 postingKey.isDisplayed();
                 postingKeyRevealButton.isDisplayed();
                 Assertions.assertEquals(postingKeyRevealButton.getText(), "Reveal private key");
+                System.out.println("Checked...");
+                break;
+            }
+            case "masterPassword": {
+                System.out.println("Check access to all keys with Master Password...");
+                ownerKey.isDisplayed();
+                activeKey.isDisplayed();
+                postingKey.isDisplayed();
+                memoKey.isDisplayed();
+                ownerKeyRevealButton.isDisplayed();
+                activeKeyRevealButton.isDisplayed();
+                postingKeyRevealButton.isDisplayed();
+                memoKeyRevealButton.isDisplayed();
+                Assertions.assertEquals(ownerKeyRevealButton.getText(), "Reveal private key");
+                Assertions.assertEquals(activeKeyRevealButton.getText(), "Reveal private key");
+                Assertions.assertEquals(postingKeyRevealButton.getText(), "Reveal private key");
+                Assertions.assertEquals(memoKeyRevealButton.getText(), "Reveal private key");
                 System.out.println("Checked...");
                 break;
             }
