@@ -25,37 +25,37 @@ public class ImportPage {
         return this;
     }
 
-    @FindBy(xpath = "//*[@id=\"username\"]")
+    @FindBy(css = "[data-e2e=\"import-user-form-username\"]>div[class=\"relative\"]>input")
     private WebElement userNameInput;
 
-    @FindBy(xpath = "//*[@id=\"password\"]")
+    @FindBy(css = "[data-e2e=\"import-user-form-password\"]>div[class=\"relative\"]>input")
     private WebElement privateKeyInput;
 
-    @FindBy(xpath = "//div/div[2]//form/div/div[3]/label/span")
+    @FindBy(css = "[data-e2e=\"import-user-form-encrypted\"]>label>span")
     private WebElement encryptYourLoginCheckBox;
 
-    @FindBy(xpath = "//div/button[@class='button-primary w-full block mb-2']")
+    @FindBy(css = "[data-e2e=\"import-user-form-submit-next\"]")
     private WebElement loginBtn;
 
     @FindBy(xpath = "//div//button[@type=\"submit\"]")
     private WebElement continueBtn;
 
-    @FindBy(xpath = "//div//div[@class=\"mb-2\"]//div[@class='text-gray text-lg pt-4']/a[normalize-space()='Signup here']")
+    @FindBy(css = "[data-e2e=\"import-user-form-signup-here\"]")
     private WebElement dontHaveAccount;
 
-    @FindBy(id = "key")
+    @FindBy(css ="[data-e2e=\"import-set-password-field\"]>[class='relative']>input")
     private WebElement hivesignerPasswordInput;
 
-    @FindBy(id = "keyConfirmation")
+    @FindBy(css = "[data-e2e=\"import-set-password-new-field\"]>[class='relative']>input")
     private WebElement hivesignerPasswordConfirmInput;
 
-    @FindBy(xpath = "//span[@class='checkbox mr-2']")
+    @FindBy(css = "[data-e2e=\"import-set-password-account\"]>label>span")
     private WebElement userSamePasswordCheckbox;
 
-    @FindBy(xpath = "//span[@class='text-lg']/..")
+    @FindBy(css= "[data-e2e=\"import-set-password-account\"]>div")
     private WebElement accountPasswordSelector;
 
-    @FindBy(xpath = "//div//form//div[normalize-space()=\"You need to use master or at least posting key to login.\"]")
+    @FindBy(css = "[data-e2e=\"import-user-form-error\"]")
     private WebElement needHigherKeyAlert;
 
     public ImportPage inputUserName(String username) {

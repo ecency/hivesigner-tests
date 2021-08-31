@@ -35,16 +35,16 @@ public class AccountsPage {
     @FindBy(xpath = "//div//div[@class='flex justify-center mt-6 md:mt-20 xl:pt-10']/a")
     private WebElement addAnotherAccBtn;
 
-    @FindBy(xpath = "//div[@class='modal flex items-center justify-center top-0 left-0 bottom-0 right-0 fixed mobile-full']//input[@id=\"importKey\"]")
+    @FindBy(css = "[data-e2e=\"confirm-encryption-key-password\"]>div[class=\"relative\"]>input")
     private WebElement confirmLocalPassword;
 
     @FindBy(xpath = "//div[@class='modal-content overflow-y-auto w-full relative bg-white duration-300 h-full xl:h-auto flex flex-col justify-center']")
     private WebElement confirmPasswordPanel;
 
-    @FindBy(xpath = "//button[normalize-space()='Login']")
+    @FindBy(css= "[data-e2e=\"confirm-encryption-key-login\"]")
     private WebElement getConfirmLocalPasswordLogin;
 
-    @FindBy(xpath = "//a[normalize-space()='Authorities']")
+    @FindBy(css = "[data-e2e=\"account-details-auths\"]")
     private WebElement authorities;
 
     @FindBy(xpath = "//div[@class='hidden md:block']")
@@ -53,7 +53,7 @@ public class AccountsPage {
     @FindBy(xpath = "//div/div[@class='hidden md:block']//div[@class='icon absolute right-4 top-4 cursor-pointer text-gray hover:text-black']")
     private WebElement accountDropdownListBottomClose;
 
-    @FindBy(xpath = "//div//a[normalize-space()='Remove from Hivesigner']")
+    @FindBy(css = "[data-e2e=\"account-details-delete\"]")
     private WebElement removeBtn;
 
     @FindBy(xpath = "//div//a[normalize-space()='Remove']")

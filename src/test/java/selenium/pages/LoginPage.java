@@ -25,19 +25,19 @@ public class LoginPage {
         return this;
     }
 
-    @FindBy(xpath = "//button[normalize-space()='Continue']")
+    @FindBy(css = "[data-e2e=\"import-user-form-submit-next\"]")
     private WebElement continueBtn;
 
-    @FindBy(xpath = "//*[contains(text(), 'Don`t have an account?')]")
+    @FindBy(css = "[data-e2e=\"add-another-account\"]+div>a")
     private WebElement dontHaveAccount;
 
-    @FindBy(xpath = "//div/div[@class='mb-2']//div[@class='select text-lg relative text-black-500 z-20']")
+    @FindBy(css = "[data-e2e=\"login-switch-account\"]")
     private WebElement accountDropdown;
 
-    @FindBy(id = "key")
+    @FindBy(css ="[data-e2e=\"login-password\"]>div[class=\"relative\"]>input")
     private WebElement hivesignerPasswordInput;
 
-    @FindBy(xpath = "//div//div[@class=\"mb-2\"]//a[@class=\"button block text-center mb-2\"]")
+    @FindBy(css = "[data-e2e=\"add-another-account\"]")
     private WebElement addAnotherAccBtn;
 
     public LoginPage clickContinueButton() {
