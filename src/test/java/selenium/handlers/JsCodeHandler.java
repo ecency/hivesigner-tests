@@ -7,6 +7,9 @@ import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.Logs;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class JsCodeHandler {
     public WebDriver driver;
 
@@ -40,5 +43,18 @@ public class JsCodeHandler {
             }
         }
         return false;
+    }
+
+    public long getNextDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 3);
+        return cal.getTime().getTime();
+    }
+
+    public void increaseDateJs() {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        long nextTimeStamp = getNextDate();
+        jse.executeScript("console.log('\"var dateYouWant =\" + nextTimeStamp + \"; Date.prototype.getTime = function() { return dateYouWant; };\"')");
+        jse.executeScript("var dateYouWant =" + nextTimeStamp + "; Date.prototype.getTime = function() { return dateYouWant; };");
     }
 }
