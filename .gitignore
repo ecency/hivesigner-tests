@@ -26,3 +26,7 @@ out/
 test/build/
 build/
 /.gradle/
+/Screenshots/
+
+/src/test/resources/
+.properties

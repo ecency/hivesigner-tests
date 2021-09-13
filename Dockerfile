@@ -50,9 +50,9 @@ RUN if [ -z "$CHROME_DRIVER_VERSION" ]; \
   && echo "Chrome driver zip downloaded" \
   && rm -rf /opt/selenium/chromedriver \
   && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \
-  && echo "Chrome driver uzipped" \
+  && echo "Chrome driver unzipped" \
   && rm /tmp/chromedriver_linux64.zip \
-  && echo "Chromedriver zip arhcive deleted" \
+  && echo "Chromedriver zip archive deleted" \
   && mv /opt/selenium/chromedriver /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
   && echo "Chromedriver unzipped folder moved to opt" \
   && chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
@@ -66,4 +66,5 @@ COPY . /app
 WORKDIR /app
 
 RUN echo "Run gradlew test task"
-CMD ./gradlew chrome
+CMD ./gradle wrapper
+CMD ./gradlew test
