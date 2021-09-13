@@ -1,5 +1,6 @@
 package selenium.tests;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,7 +12,6 @@ import selenium.pages.AccountsPage;
 import selenium.pages.AuthoritiesPage;
 import selenium.pages.GetStartedPage;
 import selenium.pages.ImportPage;
-
 import java.util.concurrent.TimeUnit;
 
 public class PrivateKeysCheckCase {
@@ -23,10 +23,13 @@ public class PrivateKeysCheckCase {
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
 
+    @BeforeAll
+    static void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
+
     @BeforeEach
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-
         ChromeOptions options = new ChromeOptions();
         options.addArguments(ConfProperties.getProperty("options.addArguments"));
 

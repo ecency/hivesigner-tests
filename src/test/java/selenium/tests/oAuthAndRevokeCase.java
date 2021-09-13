@@ -1,5 +1,6 @@
 package selenium.tests;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,8 +16,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-
-
 public class oAuthAndRevokeCase {
 
     public static WebDriver driver;
@@ -31,11 +30,13 @@ public class oAuthAndRevokeCase {
     public static JsCodeHandler jsCodeHandler;
     public static URLhandler urlHandler;
 
+    @BeforeAll
+    static void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
 
     @BeforeEach
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-
         ChromeOptions options = new ChromeOptions();
         options.addArguments(ConfProperties.getProperty("options.addArguments"));
 
