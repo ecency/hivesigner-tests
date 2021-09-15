@@ -38,7 +38,7 @@ public class oAuthAndRevokeCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("optionsBrowser"));
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
