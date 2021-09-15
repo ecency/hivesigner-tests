@@ -1,8 +1,5 @@
 package selenium;
 
-
-import org.openqa.selenium.WebDriver;
-
 public class ConfProperties {
 
     public String getStartedPageUrl = EnvProperties.getEnv("GETSTARTEDPAGEURL");
