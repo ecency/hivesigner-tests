@@ -22,6 +22,7 @@ public class PrivateKeysCheckCase {
     public static AuthoritiesPage authoritiesPage;
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
+    public static ConfProperties confProperties;
 
     @BeforeAll
     static void setupClass() {
@@ -31,12 +32,12 @@ public class PrivateKeysCheckCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("optionsBrowser"));
+        options.addArguments(confProperties.options);
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(confProperties.getStartedPageUrl);
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -49,8 +50,8 @@ public class PrivateKeysCheckCase {
 
     @Test
     public void memoPrivateKeyNotAcceptedImport() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("memoPrivateKey");
+        String username = confProperties.userName;
+        String privateKey = confProperties.memoPrivateKey;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -61,8 +62,8 @@ public class PrivateKeysCheckCase {
 
     @Test
     public void postingPrivateKeyAcceptedImport() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("postingPrivateKey");
+        String username = confProperties.userName;
+        String privateKey = confProperties.postingPrivateKey;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -77,8 +78,8 @@ public class PrivateKeysCheckCase {
 
     @Test
     public void activePrivateKeyAcceptedImport() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("activePrivateKey");
+        String username = confProperties.userName;
+        String privateKey = confProperties.activePrivateKey;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -93,8 +94,8 @@ public class PrivateKeysCheckCase {
 
     @Test
     public void ownerPrivateKeyAcceptedImport() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("ownerPrivateKey");
+        String username = confProperties.userName;
+        String privateKey = confProperties.ownerPrivateKey;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -109,8 +110,8 @@ public class PrivateKeysCheckCase {
 
     @Test
     public void masterPasswordAccessAllPrivateKeys() {
-        String username = ConfProperties.getProperty("userName");
-        String masterPassword = ConfProperties.getProperty("privateKey");
+        String username =confProperties.userName;
+        String masterPassword = confProperties.privateKey;
         getStartedPage
                 .getStartedBtnClick();
         importPage

@@ -10,6 +10,7 @@ import selenium.ConfProperties;
 
 public class LoginPage {
     private WebDriver driver;
+    private ConfProperties confProperties;
 
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -21,7 +22,7 @@ public class LoginPage {
     }
 
     public LoginPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("loginPageUrl"));
+        driver.get(confProperties.loginPageUrl);
         return this;
     }
 

@@ -13,6 +13,7 @@ import java.util.Date;
 
 public class ScreenshotsHandler {
     public WebDriver driver;
+    private ConfProperties confProperties;
 
     public ScreenshotsHandler(WebDriver driver) {
         this.driver = driver;
@@ -26,7 +27,7 @@ public class ScreenshotsHandler {
 
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(screenshot, new File((ConfProperties.getProperty("screenShotPath")) + fileName));
+            FileUtils.copyFile(screenshot, new File((confProperties.screenShotPath) + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }

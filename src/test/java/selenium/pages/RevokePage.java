@@ -19,10 +19,6 @@ public class RevokePage {
         return new RevokePage(driver);
     }
 
-//    public RevokePage navigateToPage() {
-//        driver.get(ConfProperties.getProperty("oauth2Url"));
-//        return this;
-//    }
 
     @FindBy(xpath = "//div/p[@class=\"text-black-400 text-lg\"]")
     private WebElement successMessage;

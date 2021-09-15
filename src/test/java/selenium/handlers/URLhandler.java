@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class URLhandler {
+    private ConfProperties confProperties;
 
     public String getRedirectUri() {
     return queryParams.get("redirect_uri");
@@ -31,7 +32,7 @@ public class URLhandler {
     }
 
     public String getOAuthUrl() {
-        String url = ConfProperties.getProperty("oauth2Url");
+        String url = confProperties.oauth2Url;
         Collection<String> queryParamsCollection = queryParams.keySet()
                 .stream()
                 .map(queryName -> queryName + "=" + queryParams.get(queryName))

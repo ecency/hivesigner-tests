@@ -10,6 +10,7 @@ import selenium.ConfProperties;
 
 public class ImportPage {
     private WebDriver driver;
+    private ConfProperties confProperties;
 
     public ImportPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -21,7 +22,7 @@ public class ImportPage {
     }
 
     public ImportPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("importPageUrl"));
+        driver.get(confProperties.importPageUrl);
         return this;
     }
 

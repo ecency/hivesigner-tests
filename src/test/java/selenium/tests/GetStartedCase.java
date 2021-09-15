@@ -22,6 +22,7 @@ public class GetStartedCase {
     public static LoginPage loginPage;
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
+    public static ConfProperties confProperties;
 
     @BeforeAll
     static void setupClass() {
@@ -31,11 +32,11 @@ public class GetStartedCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("optionsBrowser"));
+        options.addArguments(confProperties.options);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(confProperties.getStartedPageUrl);
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -51,13 +52,13 @@ public class GetStartedCase {
                 .getStartedBtnClick();
         importPage
                 .isPageLoaded();
-        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), importPage.getPageUrl());
+        Assertions.assertEquals(confProperties.importPageUrl, importPage.getPageUrl());
     }
 
     @Test
     public void getStartedRedirectToLoginPage() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = confProperties.userName;
+        String privateKey = confProperties.privateKey;
         getStartedPage
                 .getStartedBtnClick();
         importPage

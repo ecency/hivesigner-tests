@@ -8,6 +8,7 @@ import selenium.ConfProperties;
 
 public class GetStartedPage {
     private WebDriver driver;
+    private ConfProperties confProperties;
 
     public GetStartedPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -19,7 +20,7 @@ public class GetStartedPage {
     }
 
     public GetStartedPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(confProperties.getStartedPageUrl);
         return this;
     }
 

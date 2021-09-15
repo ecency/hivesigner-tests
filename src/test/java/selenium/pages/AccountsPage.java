@@ -11,6 +11,7 @@ import selenium.ConfProperties;
 
 public class AccountsPage {
     private WebDriver driver;
+    private ConfProperties confProperties;
 
     public AccountsPage(WebDriver driver) {
         this.driver = driver;
@@ -22,7 +23,7 @@ public class AccountsPage {
     }
 
     public AccountsPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("accountsPageUrl"));
+        driver.get(confProperties.accountsPageUrl);
         return this;
     }
 

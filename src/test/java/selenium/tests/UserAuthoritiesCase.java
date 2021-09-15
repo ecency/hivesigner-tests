@@ -22,6 +22,7 @@ public class UserAuthoritiesCase {
     public static AuthoritiesPage authoritiesPage;
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
+    public static ConfProperties confProperties;
 
     @BeforeAll
     static void setupClass() {
@@ -31,12 +32,12 @@ public class UserAuthoritiesCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("optionsBrowser"));
+        options.addArguments(confProperties.options);
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(confProperties.getStartedPageUrl);
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -48,8 +49,8 @@ public class UserAuthoritiesCase {
 
     @Test
     public void userAuthoritiesPageNavigate() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = confProperties.userName;
+        String privateKey = confProperties.privateKey;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -60,7 +61,7 @@ public class UserAuthoritiesCase {
         authoritiesPage
                 .isPageLoaded()
                 .isCorrectUser(username);
-        Assertions.assertEquals(ConfProperties.getProperty("authoritiesPageUrl"), authoritiesPage.getPageUrl());
+        Assertions.assertEquals(confProperties.authoritiesPageUrl, authoritiesPage.getPageUrl());
     }
 
     @AfterEach

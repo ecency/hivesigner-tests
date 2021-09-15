@@ -20,6 +20,7 @@ public class AccountSwitchCase {
     public static NavigationBottomLine navigation;
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
+    public static ConfProperties confProperties;
 
     @BeforeAll
     static void setupClass() {
@@ -29,12 +30,12 @@ public class AccountSwitchCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("optionsBrowser"));
+        options.addArguments(confProperties.options);
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(confProperties.getStartedPageUrl);
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -47,10 +48,10 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToAccountNoPassword() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+        String username0 = confProperties.userName;
+        String privateKey0 = confProperties.privateKey;
+        String username1 = confProperties.userNameAlt1;
+        String privateKey1 = confProperties.privateKeyAlt1;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -68,11 +69,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToAccountWithPassword() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = confProperties.userName;
+        String privateKey0 = confProperties.privateKey;
+        String username1 = confProperties.userNameAlt1;
+        String privateKey1 = confProperties.privateKeyAlt1;
+        String localPassword = confProperties.localPassword;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -92,11 +93,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToDecryptedAccountFromDropdownMenu(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = confProperties.userName;
+        String privateKey0 = confProperties.privateKey;
+        String username1 = confProperties.userNameAlt1;
+        String privateKey1 = confProperties.privateKeyAlt1;
+        String localPassword = confProperties.localPassword;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -116,11 +117,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToEncryptedAccountFromDropdownMenu(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = confProperties.userName;
+        String privateKey0 = confProperties.privateKey;
+        String username1 = confProperties.userNameAlt1;
+        String privateKey1 = confProperties.privateKeyAlt1;
+        String localPassword = confProperties.localPassword;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -140,10 +141,10 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToDecryptedAccountAfterCurrentAccRemoved(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+        String username0 = confProperties.userName;
+        String privateKey0 = confProperties.privateKey;
+        String username1 = confProperties.userNameAlt1;
+        String privateKey1 = confProperties.privateKeyAlt1;
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -164,11 +165,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToEncryptedAccountAfterCurrentAccRemoved(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = confProperties.userName;
+        String privateKey0 = confProperties.privateKey;
+        String username1 = confProperties.userNameAlt1;
+        String privateKey1 = confProperties.privateKeyAlt1;
+        String localPassword = confProperties.localPassword;
         getStartedPage
                 .getStartedBtnClick();
         importPage

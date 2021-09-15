@@ -11,6 +11,7 @@ import selenium.ConfProperties;
 
 public class AuthoritiesPage {
     private WebDriver driver;
+    private ConfProperties confProperties;
 
     public AuthoritiesPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -22,7 +23,7 @@ public class AuthoritiesPage {
     }
 
     public AuthoritiesPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("authoritiesPageUrl"));
+        driver.get(confProperties.authoritiesPageUrl);
         return this;
     }
 
