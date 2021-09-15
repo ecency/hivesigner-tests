@@ -23,6 +23,7 @@ public class AccountsPage {
     }
 
     public AccountsPage navigateToPage() {
+        confProperties = new ConfProperties();
         driver.get(confProperties.accountsPageUrl);
         return this;
     }

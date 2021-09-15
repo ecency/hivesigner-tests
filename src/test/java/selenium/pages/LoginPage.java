@@ -22,6 +22,7 @@ public class LoginPage {
     }
 
     public LoginPage navigateToPage() {
+        confProperties = new ConfProperties();
         driver.get(confProperties.loginPageUrl);
         return this;
     }

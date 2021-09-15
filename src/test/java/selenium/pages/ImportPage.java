@@ -22,6 +22,7 @@ public class ImportPage {
     }
 
     public ImportPage navigateToPage() {
+        confProperties = new ConfProperties();
         driver.get(confProperties.importPageUrl);
         return this;
     }

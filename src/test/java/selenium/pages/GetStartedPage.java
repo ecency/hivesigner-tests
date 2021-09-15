@@ -20,6 +20,7 @@ public class GetStartedPage {
     }
 
     public GetStartedPage navigateToPage() {
+        confProperties = new ConfProperties();
         driver.get(confProperties.getStartedPageUrl);
         return this;
     }

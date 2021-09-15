@@ -23,6 +23,7 @@ public class AuthoritiesPage {
     }
 
     public AuthoritiesPage navigateToPage() {
+        confProperties = new ConfProperties();
         driver.get(confProperties.authoritiesPageUrl);
         return this;
     }

@@ -31,6 +31,7 @@ public class PrivateKeysCheckCase {
 
     @BeforeEach
     public void setup() {
+        confProperties = new ConfProperties();
         ChromeOptions options = new ChromeOptions();
         options.addArguments(confProperties.options);
 
