@@ -48,8 +48,7 @@ COPY . /app
 #Making our working directory as /app
 WORKDIR /app
 
-RUN source env.sh
-
 RUN echo "Run gradlew test task"
 
+#CMD while true; do sleep 30; done;
 CMD gradle test
