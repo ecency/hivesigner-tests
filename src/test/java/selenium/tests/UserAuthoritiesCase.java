@@ -31,12 +31,11 @@ public class UserAuthoritiesCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("BROWSER_HEADLESS_MODE"), ConfProperties.getProperty("BROWSER_WINDOW_SIZE"));
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(ConfProperties.getProperty("GET_STARTED_PAGE"));
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -48,8 +47,8 @@ public class UserAuthoritiesCase {
 
     @Test
     public void userAuthoritiesPageNavigate() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -60,7 +59,7 @@ public class UserAuthoritiesCase {
         authoritiesPage
                 .isPageLoaded()
                 .isCorrectUser(username);
-        Assertions.assertEquals(ConfProperties.getProperty("authoritiesPageUrl"), authoritiesPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("AUTHORITIES_PAGE"), authoritiesPage.getPageUrl());
     }
 
     @AfterEach

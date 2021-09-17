@@ -31,11 +31,11 @@ public class GetStartedCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("BROWSER_HEADLESS_MODE"), ConfProperties.getProperty("BROWSER_WINDOW_SIZE"));
+
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(ConfProperties.getProperty("GET_STARTED_PAGE"));
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -51,13 +51,13 @@ public class GetStartedCase {
                 .getStartedBtnClick();
         importPage
                 .isPageLoaded();
-        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), importPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("IMPORT_PAGE"), importPage.getPageUrl());
     }
 
     @Test
     public void getStartedRedirectToLoginPage() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
         getStartedPage
                 .getStartedBtnClick();
         importPage

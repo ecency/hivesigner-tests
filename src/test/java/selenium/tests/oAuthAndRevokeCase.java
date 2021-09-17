@@ -38,10 +38,9 @@ public class oAuthAndRevokeCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("BROWSER_HEADLESS_MODE"), ConfProperties.getProperty("BROWSER_WINDOW_SIZE"));
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         getStartedPage = new GetStartedPage(driver);
@@ -53,14 +52,14 @@ public class oAuthAndRevokeCase {
         authoritiesPage = new AuthoritiesPage(driver);
         jsCodeHandler = new JsCodeHandler(driver);
         screenShotMaker = new ScreenshotsHandler(driver);
-        urlHandler = new URLhandler("https://www.google.com", "code", ConfProperties.getProperty("userName"));
+        urlHandler = new URLhandler("https://www.google.com", "code", ConfProperties.getProperty("USER_NAME"));
     }
 
     @Disabled("Flaky. Test depends from account balance")
     @Test
     public void oauthAndRevokeNewUserCase() throws MalformedURLException {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
         String oauthUrl = urlHandler.getOAuthUrl();
         oAuthPage
                 .navigateToPage(oauthUrl);
@@ -76,7 +75,7 @@ public class oAuthAndRevokeCase {
         Assertions.assertTrue(newURL.getQuery().contains("code="));
         Assertions.assertEquals(urlHandler.getRedirectUri(), newURL.getProtocol()+ "://" + newURL.getHost());
 
-        driver.get(ConfProperties.getProperty("accountsPageUrl"));
+        driver.get(ConfProperties.getProperty("ACCOUNTS_PAGE"));
         accountsPage
                 .isPageLoaded()
                 .authoritiesClick(username);
@@ -91,10 +90,10 @@ public class oAuthAndRevokeCase {
     @Disabled("Flaky. Test depends from account balance")
     @Test
     public void oauthAndRevokeExistedUserCase() throws MalformedURLException {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
 
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(ConfProperties.getProperty("GET_STARTED_PAGE"));
         importPage.isPageLoaded();
         importPage.importAccount(username, privateKey, false);
         accountsPage.isPageLoaded();

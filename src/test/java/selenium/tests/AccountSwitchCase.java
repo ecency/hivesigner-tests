@@ -29,12 +29,11 @@ public class AccountSwitchCase {
     @BeforeEach
     public void setup() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("BROWSER_HEADLESS_MODE"), ConfProperties.getProperty("BROWSER_WINDOW_SIZE"));
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(ConfProperties.getProperty("GET_STARTED_PAGE"));
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -47,10 +46,10 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToAccountNoPassword() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -68,11 +67,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToAccountWithPassword() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -92,11 +91,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToDecryptedAccountFromDropdownMenu(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -116,11 +115,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToEncryptedAccountFromDropdownMenu(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -140,10 +139,10 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToDecryptedAccountAfterCurrentAccRemoved(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -164,11 +163,11 @@ public class AccountSwitchCase {
 
     @Test
     public void switchToEncryptedAccountAfterCurrentAccRemoved(){
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage

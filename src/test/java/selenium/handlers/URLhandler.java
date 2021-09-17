@@ -31,14 +31,13 @@ public class URLhandler {
     }
 
     public String getOAuthUrl() {
-        String url = ConfProperties.getProperty("oauth2Url");
+        String url = ConfProperties.getProperty("OAUTH2_URL");
         Collection<String> queryParamsCollection = queryParams.keySet()
                 .stream()
                 .map(queryName -> queryName + "=" + queryParams.get(queryName))
                 .collect(Collectors.toList());
         String query = String.join("&", queryParamsCollection);
-        String oauthUrl = url + "?" + query;
 
-        return oauthUrl;
+        return url + "?" + query;
     }
 }
