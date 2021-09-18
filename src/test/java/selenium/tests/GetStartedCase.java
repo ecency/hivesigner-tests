@@ -1,9 +1,7 @@
 package selenium.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,7 +12,6 @@ import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
 import selenium.pages.ImportPage;
 import selenium.pages.LoginPage;
-
 import java.util.concurrent.TimeUnit;
 
 public class GetStartedCase {
@@ -26,17 +23,19 @@ public class GetStartedCase {
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
 
+    @BeforeAll
+    static void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
+
     @BeforeEach
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("BROWSER_HEADLESS_MODE"), ConfProperties.getProperty("BROWSER_WINDOW_SIZE"));
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(ConfProperties.getProperty("GET_STARTED_PAGE"));
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -47,18 +46,18 @@ public class GetStartedCase {
     }
 
     @Test
-    public void getStartedRedirectToImportPage(){
+    public void getStartedRedirectToImportPage() {
         getStartedPage
                 .getStartedBtnClick();
         importPage
                 .isPageLoaded();
-        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), importPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("IMPORT_PAGE"), importPage.getPageUrl());
     }
 
     @Test
     public void getStartedRedirectToLoginPage() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
         getStartedPage
                 .getStartedBtnClick();
         importPage

@@ -21,7 +21,7 @@ public class ImportPage {
     }
 
     public ImportPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("importPageUrl"));
+        driver.get(ConfProperties.getProperty("IMPORT_PAGE"));
         return this;
     }
 
@@ -83,7 +83,7 @@ public class ImportPage {
     }
 
     public ImportPage encryptLoginCheckBoxEnabled(Boolean status) {
-        if (status == false) {
+        if (!status) {
             System.out.println("'Encrypt your login' checkbox removed...");
             this.encryptYourLoginCheckBox.click();
         } else {
@@ -105,7 +105,7 @@ public class ImportPage {
     }
 
     public ImportPage userSamePassword(Boolean status, String password) {
-        if (status == true) {
+        if (status) {
             System.out.println("New User use the same local password...");
             this.userSamePasswordCheckbox.click();
             inputHivesignerPasswordConfirm(password);

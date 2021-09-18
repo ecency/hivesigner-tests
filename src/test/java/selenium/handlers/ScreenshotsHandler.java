@@ -26,7 +26,7 @@ public class ScreenshotsHandler {
 
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(screenshot, new File((ConfProperties.getProperty("screenShotPath")) + fileName));
+            FileUtils.copyFile(screenshot, new File((ConfProperties.getProperty("SCREENSHOT_PATH")) + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }

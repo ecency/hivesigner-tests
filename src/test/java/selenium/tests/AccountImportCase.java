@@ -1,9 +1,7 @@
 package selenium.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,9 +11,7 @@ import selenium.handlers.ScreenshotsHandler;
 import selenium.pages.AccountsPage;
 import selenium.pages.GetStartedPage;
 import selenium.pages.ImportPage;
-
 import java.util.concurrent.TimeUnit;
-
 
 public class AccountImportCase {
     public static WebDriver driver;
@@ -25,17 +21,19 @@ public class AccountImportCase {
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
 
+    @BeforeAll
+    static void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
+
     @BeforeEach
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("BROWSER_HEADLESS_MODE"), ConfProperties.getProperty("BROWSER_WINDOW_SIZE"));
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(ConfProperties.getProperty("GET_STARTED_PAGE"));
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -47,8 +45,8 @@ public class AccountImportCase {
 
     @Test
     public void accountImportNoEncrypt() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -57,14 +55,14 @@ public class AccountImportCase {
         accountsPage
                 .isPageLoaded()
                 .isAccountChosen(username);
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("ACCOUNTS_PAGE"), accountsPage.getPageUrl());
     }
 
     @Test
     public void accountImportEncrypt() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage.getStartedBtnClick();
         importPage
                 .isPageLoaded()
@@ -73,16 +71,16 @@ public class AccountImportCase {
         accountsPage
                 .isPageLoaded()
                 .isAccountChosen(username);
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("ACCOUNTS_PAGE"), accountsPage.getPageUrl());
     }
 
     @Test
     public void addAccountWithSamePasswordInput() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -98,17 +96,17 @@ public class AccountImportCase {
         accountsPage
                 .isPageLoaded()
                 .isAccountChosen(username1);
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("ACCOUNTS_PAGE"), accountsPage.getPageUrl());
     }
 
     @Test
     public void addAccountWithOtherPasswordInput() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
-        String localPassword2 = ConfProperties.getProperty("localPasswordAlt");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
+        String localPassword2 = ConfProperties.getProperty("LOCAL_PASSWORD_ALT");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -124,18 +122,18 @@ public class AccountImportCase {
         accountsPage
                 .isPageLoaded()
                 .isAccountChosen(username1);
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("ACCOUNTS_PAGE"), accountsPage.getPageUrl());
     }
 
     @Test
     public void addAccountWithPasswordFromDropdownList() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String username2 = ConfProperties.getProperty("userNameAlt2");
-        String privateKey2 = ConfProperties.getProperty("privateKeyAlt2");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String username2 = ConfProperties.getProperty("USER_NAME_ALT2");
+        String privateKey2 = ConfProperties.getProperty("PRIVATE_KEY_ALT2");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -157,7 +155,7 @@ public class AccountImportCase {
         accountsPage
                 .isPageLoaded()
                 .isAccountChosen(username2);
-        Assertions.assertEquals(ConfProperties.getProperty("accountsPageUrl"), accountsPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("ACCOUNTS_PAGE"), accountsPage.getPageUrl());
     }
 
     @AfterEach

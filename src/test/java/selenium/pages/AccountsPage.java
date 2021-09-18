@@ -1,6 +1,5 @@
 package selenium.pages;
 
-import com.sun.source.util.SourcePositions;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +21,7 @@ public class AccountsPage {
     }
 
     public AccountsPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("accountsPageUrl"));
+        driver.get(ConfProperties.getProperty("ACCOUNTS_PAGE"));
         return this;
     }
 
@@ -126,7 +125,7 @@ public class AccountsPage {
 
     public AccountsPage checkEncryptedOrNotIcon(String username, boolean encryptedStatus) {
         String title;
-        if (encryptedStatus == true) {
+        if (encryptedStatus) {
             title = "Encrypted";
             System.out.println("Check that encrypted account has encrypted icon...");
         } else {
@@ -143,7 +142,7 @@ public class AccountsPage {
     public AccountsPage chooseAccountFromDropDownList(String username, boolean encrypted, String password) {
         this.accountDropdownListBottom.click();
         WebElement account = driver.findElement(By.xpath(String.format("//div/div[@class='hidden md:block']//div[@class='overflow-y-auto']//div[normalize-space()='%s']", username)));
-        if (encrypted == false) {
+        if (!encrypted) {
             checkEncryptedOrNotIcon(username, false);
             account.click();
             System.out.println("Decrypted account chosen from dropdown list...");

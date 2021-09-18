@@ -1,10 +1,10 @@
 package selenium.tests;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.logging.LogEntries;
 import selenium.ConfProperties;
 import selenium.handlers.JsCodeHandler;
 import selenium.handlers.ScreenshotsHandler;
@@ -24,17 +24,19 @@ public class AccountLoginCase {
     public static ScreenshotsHandler screenShotMaker;
     public static JsCodeHandler jsCodeHandler;
 
+    @BeforeAll
+    static void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
+
     @BeforeEach
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(ConfProperties.getProperty("options.addArguments"));
+        options.addArguments(ConfProperties.getProperty("BROWSER_HEADLESS_MODE"), ConfProperties.getProperty("BROWSER_WINDOW_SIZE"));
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("getStartedPageUrl"));
+        driver.get(ConfProperties.getProperty("GET_STARTED_PAGE"));
 
         getStartedPage = new GetStartedPage(driver);
         importPage = new ImportPage(driver);
@@ -46,8 +48,8 @@ public class AccountLoginCase {
 
     @Test
     public void noPasswordRequestForDecryptedAccount() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -61,15 +63,15 @@ public class AccountLoginCase {
         loginPage
                 .isPageLoaded()
                 .checkDropdownWithAccount(username);
-        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), loginPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("LOGIN_PAGE"), loginPage.getPageUrl());
         Assertions.assertFalse(loginPage.isPasswordFieldPresent());
     }
 
     @Test
     public void passwordRequestForEncryptedAccount() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -84,14 +86,14 @@ public class AccountLoginCase {
         loginPage
                 .isPageLoaded()
                 .checkDropdownWithAccount(username);
-        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), loginPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("LOGIN_PAGE"), loginPage.getPageUrl());
         Assertions.assertTrue(loginPage.isPasswordFieldPresent());
     }
 
     @Test
     public void addAnotherAccountBtnLeadsToImportPage() {
-        String username = ConfProperties.getProperty("userName");
-        String privateKey = ConfProperties.getProperty("privateKey");
+        String username = ConfProperties.getProperty("USER_NAME");
+        String privateKey = ConfProperties.getProperty("PRIVATE_KEY");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -105,18 +107,18 @@ public class AccountLoginCase {
         loginPage
                 .isPageLoaded()
                 .addAccountClick();
-        Assertions.assertEquals(ConfProperties.getProperty("importPageUrl"), importPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("IMPORT_PAGE"), importPage.getPageUrl());
         Assertions.assertTrue(importPage.isUserNameFieldPresent());
         Assertions.assertTrue(importPage.isPrivateKeyFieldPresent());
     }
 
     @Test
     public void passwordFieldDependsFromAccountInSelector() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
-        String username1 = ConfProperties.getProperty("userNameAlt1");
-        String privateKey1 = ConfProperties.getProperty("privateKeyAlt1");
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
+        String username1 = ConfProperties.getProperty("USER_NAME_ALT1");
+        String privateKey1 = ConfProperties.getProperty("PRIVATE_KEY_ALT1");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage
@@ -136,7 +138,7 @@ public class AccountLoginCase {
         loginPage
                 .isPageLoaded();
 
-        Assertions.assertEquals(ConfProperties.getProperty("loginPageUrl"), loginPage.getPageUrl());
+        Assertions.assertEquals(ConfProperties.getProperty("LOGIN_PAGE"), loginPage.getPageUrl());
         loginPage.checkDropdownWithAccount(username0);
         Assertions.assertFalse(loginPage.isPasswordFieldPresent());
         loginPage.checkDropdownWithAccount(username1);
@@ -146,10 +148,10 @@ public class AccountLoginCase {
     @Disabled("ToDo: Complete the test with JavaScript language usage or delete it")
     @Test
     public void userEncryptedSessionLives24Hours() {
-        String username0 = ConfProperties.getProperty("userName");
-        String privateKey0 = ConfProperties.getProperty("privateKey");
+        String username0 = ConfProperties.getProperty("USER_NAME");
+        String privateKey0 = ConfProperties.getProperty("PRIVATE_KEY");
 
-        String localPassword = ConfProperties.getProperty("localPassword");
+        String localPassword = ConfProperties.getProperty("LOCAL_PASSWORD");
         getStartedPage
                 .getStartedBtnClick();
         importPage

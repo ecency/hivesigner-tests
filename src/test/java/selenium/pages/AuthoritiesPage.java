@@ -1,7 +1,6 @@
 package selenium.pages;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,7 +21,7 @@ public class AuthoritiesPage {
     }
 
     public AuthoritiesPage navigateToPage() {
-        driver.get(ConfProperties.getProperty("authoritiesPageUrl"));
+        driver.get(ConfProperties.getProperty("AUTHORITIES_PAGE"));
         return this;
     }
 
