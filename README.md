@@ -21,50 +21,47 @@
 * `tests` folder contains tests only.
 
 ###conf.properties file structure
-getStartedPageUrl = https://your.site.url/
+GET_STARTED_PAGE = https://your.site.url/
 
-importPageUrl = https://your.site.url/import?redirect=accounts
+IMPORT_PAGE = https://your.site.url/import?redirect=accounts
 
-loginPageUrl = https://your.site.url/login?redirect=accounts
+LOGIN_PAGE = https://your.site.url/login?redirect=accounts
 
-accountsPageUrl = https://your.site.url/accounts
+ACCOUNTS_PAGE = https://your.site.url/accounts
 
-authoritiesPageUrl = https://your.site.url/auths
+AUTHORITIES_PAGE = https://your.site.url/auths
 
-oauth2Url = https://your.site.url/oauth2/authorize
+OAUTH2_URL = https://your.site.url/oauth2/authorize
 
-userName = 
+USER_NAME = 
 
-privateKey = 
+PRIVATE_KEY = 
 
-userNameAlt1 = 
+USER_NAME_ALT1 = 
 
-privateKeyAlt1 = 
+PRIVATE_KEY_ALT1 = 
 
-userNameAlt2 = 
+USER_NAME_ALT2 = 
 
-privateKeyAlt2 = 
+PRIVATE_KEY_ALT2 = 
 
-localPassword = 
+LOCAL_PASSWORD = 
 
-localPasswordAlt =
+LOCAL_PASSWORD_ALT =
 
-`Chromedriver for Windows environment`:
-chromedriver=..//hivesigner-tests/chromedriver/chromedriver.exe
+SCREENSHOT_PATH=..//hivesigner-tests/Screenshots/
 
-`Chromedriver for Linux environment. Uncomment to use`
-//chromedriver=/usr/bin/chromedriver
+BROWSER_HEADLESS_MODE=--headless
+//leave `=''` if you don't want to run tests in headless mode
 
-screenShotPath=..//hivesigner-tests/Screenshots/
-
-options.addArguments=--headless
+BROWSER_WINDOW_SIZE=--window-size=1920x1080
 
 //leave `=''` if you don't want to run tests in headless mode
 
-ownerPrivateKey = 
+OWNER_PRIVATE_KEY = 
 
-activePrivateKey = 
+ACTIVE_PRIVATE_KEY = 
 
-postingPrivateKey = 
+POSTING_PRIVATE_KEY = 
 
-memoPrivateKey = 
+MEMO_PRIVATE_KEY = 
