@@ -52,6 +52,7 @@ LOCAL_PASSWORD_ALT =
 SCREENSHOT_PATH=..//hivesigner-tests/Screenshots/
 
 BROWSER_HEADLESS_MODE=--headless
+
 //leave `=''` if you don't want to run tests in headless mode
 
 BROWSER_WINDOW_SIZE=--window-size=1920x1080
