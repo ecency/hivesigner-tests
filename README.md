@@ -20,6 +20,7 @@
 * `tests` folder contains tests only.
 
 ###conf.properties file structure
+
 GET_STARTED_PAGE = https://your.site.url/
 
 IMPORT_PAGE = https://your.site.url/import?redirect=accounts
