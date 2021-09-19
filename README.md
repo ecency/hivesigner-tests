@@ -14,7 +14,6 @@
 * You also may run all tests from `src/test/java/selenium/tests` folder using `junit` with `Run` command in IDEA context menu
 
 ###Structure
-* `chromedriver` folder contains Google Chrome selenium webdriver to run tests with Google Chrome;
 * `gradlew` folder contains gradlew v7.2 jar file and wrapper file;
 * `pages` folder contains classes which describe each web page with elements and methods to work with them;
 * `handlers` folder contains classes which make work with project easier;
