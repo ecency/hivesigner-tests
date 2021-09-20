@@ -1,26 +1,31 @@
-# hivesigner-tests
+# Hivesigner tests
 
-###To run tests on local machine you need to:
+### To run tests on local machine you need to:
+
 * clone the project from git to your local machine;
 * if IDEA will suggest ==> import gradle project;
 * if not ==> run `gradlew wrapper` command in terminal to install gradle from the project (current version 7.2);
 * wait until all dependencies downloaded;
 
-###To configure tests
+### To configure tests
+
 * create `resource` folder in `./src/test/` path and add `conf.properties` file to it;
 
-###To run tests
+### To run tests
+
 * Run `gradlew test` command in terminal
 * You also may run all tests from `src/test/java/selenium/tests` folder using `junit` with `Run` command in IDEA context menu
 
-###Structure
+### Structure
+
 * `gradlew` folder contains gradlew v7.2 jar file and wrapper file;
 * `pages` folder contains classes which describe each web page with elements and methods to work with them;
 * `handlers` folder contains classes which make work with project easier;
 * `tests` folder contains tests only.
 
-###conf.properties file structure
+### conf.properties file structure
 
+```
 GET_STARTED_PAGE = https://your.site.url/
 
 IMPORT_PAGE = https://your.site.url/import?redirect=accounts
@@ -66,3 +71,5 @@ ACTIVE_PRIVATE_KEY =
 POSTING_PRIVATE_KEY = 
 
 MEMO_PRIVATE_KEY = 
+```
+
