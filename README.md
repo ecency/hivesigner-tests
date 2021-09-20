@@ -7,6 +7,10 @@
 * if not ==> run `gradlew wrapper` command in terminal to install gradle from the project (current version 7.2)
 * wait until all dependencies downloaded
 
+### Important note for local testing:
+* Selenium webdriver uses already installed browser (e.g. Chrome or chromium project) on your operating system.
+If you want to separate test-run from your local environment, you may run test with a special docker container (example and tutorual here https://www.blazemeter.com/blog/how-to-run-selenium-tests-in-docker)
+
 ### To configure tests
 
 * create `conf.properties` file in `./src/test/resources` folder and add proper environment variables.
