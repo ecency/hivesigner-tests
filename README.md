@@ -1,15 +1,15 @@
-# Hivesigner tests
+# Hivesigner Automated UI testing
 
 ### To run tests on local machine you need to:
 
-* clone the project from git to your local machine;
-* if IDEA will suggest ==> import gradle project;
-* if not ==> run `gradlew wrapper` command in terminal to install gradle from the project (current version 7.2);
-* wait until all dependencies downloaded;
+* clone the project from git to your local machine
+* if IntelliJ IDEA will suggest ==> import gradle project
+* if not ==> run `gradlew wrapper` command in terminal to install gradle from the project (current version 7.2)
+* wait until all dependencies downloaded
 
 ### To configure tests
 
-* create `resource` folder in `./src/test/` path and add `conf.properties` file to it;
+* create `conf.properties` file in `./src/test/resources` folder and add proper environment variables.
 
 ### To run tests
 
@@ -18,10 +18,10 @@
 
 ### Structure
 
-* `gradlew` folder contains gradlew v7.2 jar file and wrapper file;
-* `pages` folder contains classes which describe each web page with elements and methods to work with them;
-* `handlers` folder contains classes which make work with project easier;
-* `tests` folder contains tests only.
+* `gradlew` folder contains gradlew v7.2 jar file and wrapper file
+* `pages` folder contains classes which describe each web page with elements and methods to work with them
+* `handlers` folder contains classes which make work with project easier
+* `tests` folder contains tests only
 
 ### conf.properties file structure
 
